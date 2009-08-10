@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>treeutil</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;treeutil
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="treeutil-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module treeutil</h1><p class="nomargin-top"><span class="codelink"><a href="treeutil-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="heading">treeutil</h1>
+    <p>Contains all sort of utilities to search and manipulate nested lists
+    as trees.</p>
+    <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY 
+    KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
+    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        by Mehdi Khoury
+      </p>
+      <p><strong>Version:</strong>
+        1.00
+      </p>
+      <p><strong>Copyright:</strong>
+        (c) 2009 Mehdi Khoury under the mit license 
+        http://www.opensource.org/licenses/mit-license.html
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.TreeUtilError-class.html" class="summary-name">TreeUtilError</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.NestedHeadNode-class.html" class="summary-name">NestedHeadNode</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.NotAList-class.html" class="summary-name">NotAList</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.EmptyList-class.html" class="summary-name">EmptyList</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.EmptyDict-class.html" class="summary-name">EmptyDict</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.CalculationError-class.html" class="summary-name">CalculationError</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="treeutil.WrongValues-class.html" class="summary-name">WrongValues</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#listGetRootNode" class="summary-sig-name">listGetRootNode</a>(<span class="summary-sig-arg">myTree</span>)</span><br />
+      get the root node of a nested list</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#listGetRootNode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#BFS_Search" class="summary-sig-name">BFS_Search</a>(<span class="summary-sig-arg">myTree</span>)</span><br />
+      Traverse the nodes of a tree in breadth-first order.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#BFS_Search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#walk" class="summary-sig-name">walk</a>(<span class="summary-sig-arg">seq</span>)</span><br />
+      Walk over a sequence of items, printing each one in turn, and 
+      recursively walking over sub-sequences.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#walk">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#getChildrenNodes2" class="summary-sig-name">getChildrenNodes2</a>(<span class="summary-sig-arg">lst</span>,
+        <span class="summary-sig-arg">depth</span>)</span><br />
+      Get the children nodes in a nested list for a specific depth</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#getChildrenNodes2">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#PostOrder_Search" class="summary-sig-name">PostOrder_Search</a>(<span class="summary-sig-arg">myTree</span>)</span><br />
+      Traverse the nodes of a tree by getting the leafs first and the 
+      branches after.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#PostOrder_Search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#DFS_Search" class="summary-sig-name">DFS_Search</a>(<span class="summary-sig-arg">seq</span>)</span><br />
+      a recursive generator that flatten a nested list gives a list of all 
+      nodes in the tree in Depth First Search order</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#DFS_Search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#BranchNodes_Search" class="summary-sig-name">BranchNodes_Search</a>(<span class="summary-sig-arg">myTree</span>)</span><br />
+      a generator to iterate through branch nodes only in BFS order.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#BranchNodes_Search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#LeafNodes_Search" class="summary-sig-name">LeafNodes_Search</a>(<span class="summary-sig-arg">myTree</span>)</span><br />
+      a generator to iterate through leaf nodes only in right-to-left BFS 
+      preorder.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#LeafNodes_Search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#isNested" class="summary-sig-name">isNested</a>(<span class="summary-sig-arg">myList</span>)</span><br />
+      Check if a list is nested</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#isNested">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#list_getTail" class="summary-sig-name">list_getTail</a>(<span class="summary-sig-arg">myList</span>)</span><br />
+      get the tail of a 'node' e.g.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#list_getTail">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#getSubLists" class="summary-sig-name">getSubLists</a>(<span class="summary-sig-arg">myList</span>)</span><br />
+      get a list of all sub lists in a nested list</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#getSubLists">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#nestedListToDict" class="summary-sig-name">nestedListToDict</a>(<span class="summary-sig-arg">myList</span>)</span><br />
+      get a dictionnary from a nested list</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#nestedListToDict">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#dictFindRootNode" class="summary-sig-name">dictFindRootNode</a>(<span class="summary-sig-arg">myDict</span>)</span><br />
+      find the root node of a tree in a dictionary (assumption is that a 
+      root node is a key never found in any of all values)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#dictFindRootNode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#dictGetRootList" class="summary-sig-name">dictGetRootList</a>(<span class="summary-sig-arg">myDict</span>)</span><br />
+      get the list coresponding to the root node</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#dictGetRootList">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#dictToSubLists" class="summary-sig-name">dictToSubLists</a>(<span class="summary-sig-arg">myDict</span>)</span><br />
+      get a list version of the dictionary</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#dictToSubLists">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#nestedInsert" class="summary-sig-name">nestedInsert</a>(<span class="summary-sig-arg">list1</span>,
+        <span class="summary-sig-arg">list2</span>)</span><br />
+      nest a list inside another one if the first one has elements which 
+      are head of lists or sub lists in list 2</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#nestedInsert">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="treeutil-module.html#dictToNestedList" class="summary-sig-name">dictToNestedList</a>(<span class="summary-sig-arg">myDict</span>)</span><br />
+      finally, transform the dictionary into a nested list</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="treeutil-pysrc.html#dictToNestedList">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="listGetRootNode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">listGetRootNode</span>(<span class="sig-arg">myTree</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#listGetRootNode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  listGetRootNode</h1>
+    <p>get the root node of a nested list</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myTree</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the root node of a nested list</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="BFS_Search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">BFS_Search</span>(<span class="sig-arg">myTree</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#BFS_Search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  BFS_Search</h1>
+    <p>Traverse the nodes of a tree in breadth-first order.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myTree</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>an generator for a list of nodes in Breath First Search order</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="walk"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">walk</span>(<span class="sig-arg">seq</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#walk">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  walk</h1>
+    <p>Walk over a sequence of items, printing each one in turn, and 
+    recursively walking over sub-sequences.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>seq</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getChildrenNodes2"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getChildrenNodes2</span>(<span class="sig-arg">lst</span>,
+        <span class="sig-arg">depth</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#getChildrenNodes2">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  getChildrenNodes2</h1>
+    <p>Get the children nodes in a nested list for a specific depth</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lst</code></strong> - the nested list representing a tree</li>
+        <li><strong class="pname"><code>depth</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a flat list of children nodes for a specific depth</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="PostOrder_Search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">PostOrder_Search</span>(<span class="sig-arg">myTree</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#PostOrder_Search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  PostOrder_Search</h1>
+    <p>Traverse the nodes of a tree by getting the leafs first and the 
+    branches after. Finishes with the root. e.g. 
+    [1,[2,[3,4,[5,6,7]]],[8,[9,10,11]],[12,13,14]] gives : [7, 6, 5, 4, 3, 
+    2, 11, 10, 9, 8, 14, 13, 12, 1]</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myTree</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a flat list of nodes in PostOrder Search</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="DFS_Search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">DFS_Search</span>(<span class="sig-arg">seq</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#DFS_Search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  DFS_Search</h1>
+    <p>a recursive generator that flatten a nested list gives a list of all
+    nodes in the tree in Depth First Search order</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>seq</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a flat list of nodes in Depth First Search order</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="BranchNodes_Search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">BranchNodes_Search</span>(<span class="sig-arg">myTree</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#BranchNodes_Search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  BranchNodes_Search</h1>
+    <p>a generator to iterate through branch nodes only in BFS order.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myTree</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a flat list of branch nodes nodes in BFS order.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="LeafNodes_Search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">LeafNodes_Search</span>(<span class="sig-arg">myTree</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#LeafNodes_Search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  LeafNodes_Search</h1>
+    <p>a generator to iterate through leaf nodes only in right-to-left BFS 
+    preorder.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myTree</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a flat list of leaf nodes nodes in BFS preorder.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="isNested"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">isNested</span>(<span class="sig-arg">myList</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#isNested">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  isNested</h1>
+    <p>Check if a list is nested</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myList</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>1 if nested , 0 if not.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="list_getTail"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">list_getTail</span>(<span class="sig-arg">myList</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#list_getTail">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  list_getTail</h1>
+    <p>get the tail of a 'node' e.g. [1,2]-&gt;[2] e.g. 
+    [1,[2,4],5]-&gt;[2,5]</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myList</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the tail of the list</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getSubLists"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getSubLists</span>(<span class="sig-arg">myList</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#getSubLists">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  getSubLists</h1>
+    <p>get a list of all sub lists in a nested list</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myList</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a list of all sub lists in a nested list</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="nestedListToDict"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nestedListToDict</span>(<span class="sig-arg">myList</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#nestedListToDict">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  nestedListToDict</h1>
+    <p>get a dictionnary from a nested list</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myList</code></strong> - the nested list representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a dictionary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dictFindRootNode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dictFindRootNode</span>(<span class="sig-arg">myDict</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#dictFindRootNode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  dictFindRootNode</h1>
+    <p>find the root node of a tree in a dictionary (assumption is that a 
+    root node is a key never found in any of all values)</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myDict</code></strong> - the dictionary representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a dictionary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dictGetRootList"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dictGetRootList</span>(<span class="sig-arg">myDict</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#dictGetRootList">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  dictGetRootList</h1>
+    <p>get the list coresponding to the root node</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myDict</code></strong> - the dictionary representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the list coresponding to the root node</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dictToSubLists"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dictToSubLists</span>(<span class="sig-arg">myDict</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#dictToSubLists">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  dictToSubLists</h1>
+    <p>get a list version of the dictionary</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myDict</code></strong> - the dictionary representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the list corresponding to the dictionary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="nestedInsert"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">nestedInsert</span>(<span class="sig-arg">list1</span>,
+        <span class="sig-arg">list2</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#nestedInsert">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  nestedInsert</h1>
+    <p>nest a list inside another one if the first one has elements which 
+    are head of lists or sub lists in list 2</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>list1</code></strong> - flat list 1</li>
+        <li><strong class="pname"><code>list1</code></strong> - flat list 2</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>resulting nested list</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="dictToNestedList"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dictToNestedList</span>(<span class="sig-arg">myDict</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="treeutil-pysrc.html#dictToNestedList">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  dictToNestedList</h1>
+    <p>finally, transform the dictionary into a nested list</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>myDict</code></strong> - the dictionary representing a tree</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>the nested list corresponding to the dictionary</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 15 11:36:18 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

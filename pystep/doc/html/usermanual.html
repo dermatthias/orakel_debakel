@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>pystep user manual - genetic programming python</title>
+<style type="text/css">
+<!--
+.style2 {	color: #FFFFFF;
+	font-weight: bold;
+}
+.style3 {color: #FFFFFF}
+.style4 {font-family: Arial, Helvetica, sans-serif}
+-->
+</style>
+</head>
+
+<body>
+<table width="893" border="1" bordercolor="#FFFFFF" bgcolor="#FFFFFF">
+  <tr>
+    <td width="883" bordercolor="#FFFFFF" bgcolor="#000000"><h1><span class="style2">pySTEP </span> <span class="style3">User Manual 1.0 </span></h1></td>
+  </tr>
+</table>
+<h2><strong>Python Strongly Typed gEnetic Programming</strong></h2>
+<p><img src="lego_evolution.jpg" alt="3d rendered picture of an evolutionary lego man" width="460" height="341" /></p>
+<p>&nbsp;</p>
+<h1>Introduction</h1>
+<p>pySTEP is a <em>light</em> <strong>Genetic Programming API</strong> that allows the user to easily evolve populations of trees with <em>precise grammatical and structural constraints</em>. </p>
+<p><strong>Problem</strong>: Lack of simplicity and flexibility of  existing Genetic Programming APIs when using Strongly-Typed and Grammar  based structures.</p>
+<p><strong>The goal is:</strong> create a <strong><em>simple</em> </strong>and<em><strong> flexible Strongly-Typed Genetic Programming API</strong></em> using a <em><strong>simple</strong></em> and <em><strong>flexible</strong></em> <em><strong>programming language</strong></em> : <em><strong>Python.</strong></em></p>
+<p align="left"><strong>The goal is NOT  :</strong> a super-optimized,  hyper-performant marvel of software engineering that computes huge  populations using obfuscated code. We will be happy to play with  relatively small populations of let say 10000 individuals maximum. What  we want is not raw power, but rather control on how we investigate the  search space by establishing elaborate constraints and structures  defining the shapes of the trees generated.</p>
+<p align="left">This would be a package that allows you to evolve any  kind of weird graph, object, hierachical and complex composite  structure in general, given this thing can be encoded inside a tree  structure. </p>
+<p align="left">In Python, the following tree could be represented  by a nested list:</p>
+<p align="left"><img src="tree.jpg" alt="tree data structure" width="304" height="233" /></p>
+<p align="left">Nested list representation (<strong>Assumption: First  element of a list or a nested list is always a head node</strong>) : </p>
+<p>individual =<strong> ['A',  ['B', ['D', 'H', 'I'], 'E'], ['C','F', 'G']]</strong></p>
+<p align="left">This simple representation is the starting point of the project.</p>
+<p>In our package, we try to follow some consistent notation to identify tree nodes. A node object is a tuple composed of three elements e.g. (0,2,'root')</p>
+<ul>
+  <li>The first element represent the type of node:
+    <ul>
+      <li>0 Root Branch</li>
+      <li>1 Function Branch</li>
+      <li>2 ADF Defining Branch</li>
+      <li>3 Variable Leaf</li>
+      <li>4 Constant Leaf</li>
+      <li>5 ADF Leaf</li>
+    </ul>
+  </li>
+  <li>The second element is the arity of the Node (number of children).<br />
+    If the number of children &gt;0 then it is a branch node. If arity = 0 <br />
+  then it is a leaf node... e.g. (0,2,'root') means the root node has two children.</li>
+  <li> The third element is the name or unique identifier of the Node.<br />
+    e.g (1,2,'+') is a function branch node with two children and unique identifier '+'<br />
+    while (1,2,'*') is a function branch node with two children and unique identifier '*'</li>
+</ul>
+<p>So, following this way of coding nodes, a basic equation like  x * (x^2 + x)could be represented by:</p>
+<p>[(0, 1, 'root'), [(1, 2, '*'), (3, 0, 'x'), [(1, 2, '+'), [(1, 1, '^2'), (3, 0, 'x')], (3, 0, 'x')]]] </p>
+<p align="left">&nbsp;</p>
+<h1 align="left">pySTEP how to </h1>
+<p align="left">To evolve a population of trees in order to solve a particular problem, you need to:</p>
+<p align="left">Step 1 - create a new parameter file. </p>
+<p align="left">Step 2 - build trees </p>
+<p align="left">Step 3 - specify a fitness function</p>
+<p align="left">Step 4- evolve a population of trees </p>
+<p align="left">&nbsp;</p>
+<h2 align="left">Step 1 - create a new parameter file. </h2>
+<p align="left">You need to create a new .py file that will contain all the parameters. e.g. create a '<strong>my_seetings.py</strong>' blank file. At the top of the file, import whatever modules you need. e.g. </p>
+<p><code>
+  import random
+</code></p>
+<p><code>import math
+</code></p>
+<p><code>psyco.profile() # will optimize the binary code using the psyco interpreter </code></p>
+<p>Then, start writing down the 8 parameters. </p>
+<h3 align="left">Parameter 1: The function set </h3>
+<p>We need to define branch nodes and map functions to them to perform operations <br />
+  such as arithmetic addition, subtraction, multiplication... Whatever operation is<br />
+  needed in the function set of a tree should be created here.<br />
+  e.g.</p>
+<p>Functions like add return the result of the addition of two children nodes, or some exception if something goes wrong. e.g. </p>
+<p><code> def add(listElem): </code></p>
+<blockquote>
+  <p><code> try: </code></p>
+  <blockquote>
+    <p><code> return</code><code> listElem[0]+listElem[1] </code></p>
+  </blockquote>
+  <p><code>except: </code></p>
+  <blockquote>
+    <p><code>raise WrongValues, &quot;Wrong values sent to function node.\nCan't get result&quot; </code></p>
+    <p><code>exit </code></p>
+  </blockquote>
+</blockquote>
+<p>(see complete function listing in the sourcecode of tutorial1)</p>
+<p>Then we can define the mapping to the whole function set: </p>
+<p><code>
+functions = {</code></p>
+<p><code> '+':add,
+</code></p>
+<p><code>'-':sub,
+</code></p>
+<p><code>'neg':neg,
+</code></p>
+<p><code>'*':multiply,
+</code></p>
+<p><code>'^2':square,
+</code></p>
+<p><code>'cos':cos,
+</code></p>
+<p><code>'sin':sin,
+</code></p>
+<p><code>'root':rootBranch
+  } </code></p>
+<p>&nbsp;</p>
+<h3 align="left">Parameter 2: The terminal set</h3>
+<p align="left">We define the terminal nodes, and map them with corresponding methods. e.g.</p>
+<p><code>
+nb_eval=2
+</code></p>
+<p><code>all_x=[]
+  </code></p>
+<p><code>for i in xrange(nb_eval):
+  </code></p>
+<blockquote>
+  <p><code>all_x.append(random.random()*10)
+  </code></p>
+</blockquote>
+<p><code>terminals = {
+  'x':all_x}</code></p>
+<p>&nbsp;</p>
+<h3>Parameter 3: The number of data points evaluated</h3>
+<p>We define the number of examples we learn from. It has just been used to define the terminals in the previous piece of code: </p>
+<p><code>nb_eval=2 </code></p>
+<h3 align="left">Parameter 4: The learning data </h3>
+<p align="left">The results we try to approach. They are defined by some 'ideal' function, or by genuine data taken from some experiment. e.g.</p>
+<p><code>
+  ideal_results=[]  
+</code></p>
+<p><code>def GetIdealResultsData():
+</code></p>
+<blockquote>
+  <p><code>for nb in xrange(nb_eval):</code></p>
+  <blockquote>
+    <p><code> ideal_results.append([all_x[nb]**3+all_x[nb]**2+math.cos(all_x[nb])]) </code></p>
+  </blockquote>
+  <p><code>return ideal_results </code>  </p>
+</blockquote>
+<p align="left">&nbsp;</p>
+<h3 align="left"><strong>Parameter 5: The mapping of function branches in case of crossover</strong></h3>
+<p>We also define what function branches can be changed during crossover, to make an a fragment compliant with a new parent tree. e.g</p>
+<p><code>crossover_mapping=[('+','adf2_+'),('adf2_+','+'),('*','adf2_*'),('adf2_*','*')]</code></p>
+<p>This example means that if a branch of the fragment tree has a '+' branch, this branch can be replaced by an 'adf2_+' branch </p>
+<p align="left">to make the fragment compatible to the new parent tree. </p>
+<p align="left">In our case, we don't need this advanced feature at the moment, so we just write:</p>
+<p align="left"><code>crossover_mapping=[]</code> </p>
+<h3 align="left">Parameter 6: The degree of control on the tree constraints</h3>
+<p align="left">To say if we we control the compliance of the offspring and trees built to a set a rules. Can be set to 1 if such control is needed. So far we will use the value 0.</p>
+<p align="left"><code>Strongly_Typed_Crossover_degree=0</code> </p>
+<p align="left">We also specify what happens after the system has tried 100 times to produced a rules-compliant tree using crossover but has failed.</p>
+<p align="left">Either we accept the unfit offsprings  with Substitute_Mutation=0 or we substitute them with a mutated tree by setting Substitute_Mutation=1.</p>
+<p align="left">In our case, the rules are very simple, so we can set : </p>
+<p align="left">Substitute_Mutation=0</p>
+<p align="left">&nbsp;</p>
+<h3 align="left">Parameter 7: The rules that determine the shape of a tree</h3>
+<p align="left">Every child of every node in the tree has a list of possible function nodes and terminal nodes. A given node will be described as a list of tuples where each tuple contains the function and terminal set for a child. e.g. a '+' node will have two children. Each child will use a default function and terminal set.So a '+' node will be described by [(defaultFunctionSet,defaultTerminalSet),(defaultFunctionSet,defaultTerminalSet)].</p>
+<p align="left">One complete example of implementation:</p>
+<p>defaultFunctionSet= [(1,2,'+'),(1,2,'*'),(1,1,'^2'),(1,2,'-'),(1,1,'cos'),(1,1,'sin'),(1,1,'neg')]<br />
+  # default terminal set applicable by for branches:<br />
+  defaultTerminalSet= [(3,0,'x')]<br />
+  treeRules = {'root':[(defaultFunctionSet,defaultTerminalSet)],<br />
+  '+':[(defaultFunctionSet,defaultTerminalSet),(defaultFunctionSet,defaultTerminalSet)],<br />
+  '*':[(defaultFunctionSet,defaultTerminalSet),(defaultFunctionSet,defaultTerminalSet)],<br />
+  '^2':[(defaultFunctionSet,defaultTerminalSet)],<br />
+  '-':[(defaultFunctionSet,defaultTerminalSet),(defaultFunctionSet,defaultTerminalSet)],<br />
+  'neg':[([(1,2,'+'),(1,2,'*'),(1,2,'-'),(1,1,'cos'),(1,1,'sin')],defaultTerminalSet)],<br />
+  'cos':[([(1,2,'+'),(1,2,'*'),(1,2,'-'),(1,1,'sin'),(1,1,'neg')],defaultTerminalSet)],<br />
+  'sin':[([(1,2,'+'),(1,2,'*'),(1,2,'-'),(1,1,'cos'),(1,1,'neg')],defaultTerminalSet)]<br />
+}</p>
+<h3> Parameter 8: If the order of the ADF branches matters </h3>
+<p>There are no ADF branches in this example, so it does not matter. e.g.</p>
+<p><code>adfOrdered = False</code> </p>
+<p align="left">&nbsp;</p>
+<p align="left">Then you need to tell the system that it will have to use this file for settings. In order to do that, go to the module called '<strong>settings.py</strong>'. Then you need to declare all the 10 different parameters  as being located in 'my_seetings.py'. e.g.</p>
+<p># setup for running tutorial 1<br />
+  functions = my_seetings.functions<br />
+  terminals =my_seetings.terminals<br />
+  crossover_mapping=my_seetings.crossover_mapping<br />
+  nb_eval=my_seetings.nb_eval<br />
+  ideal_results=my_seetings.GetIdealResultsData()<br />
+  Strongly_Typed_Crossover_degree=my_seetings.Strongly_Typed_Crossover_degree<br />
+  Substitute_Mutation=my_seetings.Substitute_Mutation<br />
+  treeRules = my_seetings.treeRules<br />
+  adfOrdered = my_seetings.adfOrdered<br />
+FitnessFunction = my_seetings.FitnessFunction</p>
+<p>The settings.py module contains extensive comments explaining these parameters in greater details. If you feel that the following explanation is not sufficient, read the api documention for settings (it contains detailed information) . </p>
+<h2 align="left">Step 2 - build trees </h2>
+<p align="left">You generally need to test if your grammar rules are correct, and if they allow you to produce trees without weird errors.</p>
+<p align="left">To do that little test, go to the buildtree.py module. There is a main method at the end that build a tree for you.</p>
+<p><code>if __name__ == '__main__':</code></p>
+<blockquote>
+  <p><code>a=buildTree().AddHalfNode((0,3,'root'),0,2,8) </code></p>
+  <p><code>print a </code>  </p>
+</blockquote>
+<p align="left">Just run it several times to see if it works properly... Otherwise, make sure your set of rules is consistant... </p>
+<h2 align="left">Step 3- Define a fitness function </h2>
+<p align="left">In the module my_seetings.py , we define the fitness function. It generally reuse functions from the module evalfitness.</p>
+<p align="left">e.g.</p>
+<p align="left">def FitnessFunction(my_tree):<br />
+return evalfitness.FinalFitness(evalfitness.EvalTreeForAllInputSets(my_tree,xrange(nb_eval)))</p>
+<p align="left"> use two functions :</p>
+<p align="left">EvalTreeForAllInputSets: parse the tree by plugging input values and computing the result obtained at the top of the tree. </p>
+<p align="left">FinalFitness: returns the overall fitness of a tree over a set of datapoints using the result of the previous function as an input. It contains problem specific aspects of the fitness calculation. </p>
+<p align="left">&nbsp; </p>
+<h2 align="left">Step 4- Start Evolution... </h2>
+<p>To execute the evolution run of the first tutorial, create a main method in Python (there is one already made for you in the package if you want...).<br />
+  Inside, you need to:<br />
+  1- import the module called &quot;evolver&quot;<br />
+  2- define a name and path for you database.<br />
+  3- and then call the EvolutionRun method from the evolver module.<br />
+  e.g. of a main file:<br />
+  <br />
+</p>
+<p>import evolver</p>
+<p>if __name__ == &quot;__main__&quot;:<br />
+  <br />
+  dbname=r'C:\pop_db'<br />
+  evolver.EvolutionRun(2000,(0,5,'root'),3,8,'AddHalfNode',100, 0.00001 ,0.5,0.49,7,0.8,dbname,True)</p>
+<blockquote>&nbsp;</blockquote>
+<p>This means that we define:</p>
+<ul>
+  <li>a population size of 2000 individuals,</li>
+  <li>a root node with 1 child</li>
+  <li>a minimum tree depth of 2</li>
+  <li>a maximum tree depth of 8</li>
+  <li> the use of a Ramped half and Half Koza tree building method</li>
+  <li>a maximum number of runs of 100 generations before we stop<br />
+  </li>
+  <li>a stoping fitness criteria of 0.1 (if the fitness&lt;=0.1, solution found)<br />
+  </li>
+  <li>a crossover probability of 0.5<br />
+  </li>
+  <li>a mutation probability of 0.49<br />
+  </li>
+  <li>a reproduction probability of 0.01 (automatically deduced from the 2 previous values)</li>
+  <li>the size of the tournament selection</li>
+  <li>the probability of selecting the fitttest during tournament selection </li>
+  <li>a database of name and path dbname<br />
+  </li>
+  <li>a run done in verbose mode (printing the fittest element of each generation) </li>
+</ul>
+<p>The run will create a database file containing tables of names tab0, tab1,... where every table contains the population for the corresponding generation. </p>
+<p align="left">To see the system in action with more interesting examples, look at the tutorials 1 to 5...</p>
+<h1 align="left">Enjoy playing with evolution ! </h1>
+</body>
+</html>

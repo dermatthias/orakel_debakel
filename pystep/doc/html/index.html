@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="keywords" content="genetic programming, strongly-typed, machine learning, evolutionary computation, artificial evolution, python, artificial intelligence" />
+<meta name="description" content="A Python distribution to do Strongly-Typed Genetic Programming" />
+
+
+<title>pystep on sourceforge - a genetic programming python package</title>
+<style type="text/css">
+<!--
+.style2 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="893" border="1" bordercolor="#FFFFFF" bgcolor="#FFFFFF">
+  <tr>
+    <td width="883" bordercolor="#FFFFFF" bgcolor="#000000"><h1><span class="style2">pySTEP</span></h1></td>
+  </tr>
+</table>
+<h2><strong>Python Strongly Typed gEnetic Programming</strong></h2>
+<p><img src="lego_evolution.jpg" width="460" height="341" /></p>
+<p>A <em>light</em> <strong>Genetic Programming API</strong> that allows the user to easily evolve populations of trees with <em>precise grammatical and structural constraints</em>. In other worlds you can set up building blocks and rules that define individuals during the evolution. </p>
+<table width="830" height="80" border="1" bordercolor="#FFFFFF" bgcolor="#CCCCCC">
+  <tr>
+    <td><p>Why using rules and constraints ? </p>
+    <p>Let's take the example of the DNA of a human being which is 95% similar to the DNA of a chimp. This means that there is some strong similarity in the building blocks and the structure of the genetic code. A completely random genetic code would make no sense on a functional practical point of view because it would give some kind of unfit and disfunctional goo... I just think that, to be useful, artificial evolution has to be able to integrate basic rules that determine the shape of the individuals generated, so that we can get practical results. This does not mean we eliminate random search and we still admit poorly fit individuals. But at least we focus the search in the direction of the problem by only generating potentially useful solutions. </p></td>
+  </tr>
+</table>
+<p>pySTEP is presently functional, running and stable. Still in the process of adding extra tutorials, extra features for reading the populations from the database, and modify some of the crossover code (so far, only 1-point crossover is used).</p>
+<p>There has been a lot of improvement going on since the first version:</p>
+<ul>
+  <li>The Koza Strongly-Typed flavoured build methods have been simplified and optimized (around 10 times faster for a code length reduced by five!) </li>
+  <li> It is now possible to use a specific function-terminal sets for each of the children node. And these children node are built in the order they appear in the tree constraints (this feature only existed for ADF in the previous version). This makes pySTEP very competitive and gives it a serious advantage over existing Strongly typed GP packages :) </li>
+  <li>It is now possible to specify what happens after the system has tried 100 times to produced rules-compliant offsprings using crossover but has failed (this might happens if we use a lot of constraining rules). Either we accept the unfit offsprings with Substitute_Mutation=0 or we substitute them with a mutated tree by setting Substitute_Mutation=1.</li>
+  <li>The parameters of the tournament selection are integrated in the main function that calls the evolutionary run.&nbsp;</li>
+  <li>Code for crossover and mutation is now simplified and clearer. </li>
+</ul>
+<p>You can download the last <a href="http://sourceforge.net/projects/pystep/">version</a> here. </p>
+<h3>License Agreement </h3>
+<p>copyright: (c) 2009 Mehdi Khoury under the mit license.<br />
+http://www.opensource.org/licenses/mit-license.html</p>
+<h3> Documentation and Help </h3>
+<p> This distribution comes with several pieces of documentation: </p>
+<ul>
+  <li>the <a href="index_doc.html">API documentation</a></li>
+  <li>the <a href="README.txt">README</a> file </li>
+  <li>a <a href="usermanual.html">User Manual</a></li>
+</ul>
+<p>In order to be able to use this package, you need to have installed on your machine:</p>
+<p>- <a href="http://www.python.org/download/">Python 2.6.1</a></p>
+<p>- <a href="http://www.voidspace.org.uk/downloads/psyco-1.6.win32-py2.6.exe">psyco</a> for python 2.6</p>
+<p>- <a href="http://oss.itsystementwicklung.de/trac/pysqlite/">pysqlite</a> for python 2.6 and the corresponding version of SQlite</p>
+<p>- <a href="https://sourceforge.net/project/showfiles.php?group_id=1369&amp;package_id=175103">numpy</a> for python 2.6</p>
+<h3>Tutorials</h3>
+<p>A detailed html documentation explains how to set the parameters in the <a href="settings-module.html">settings</a> module and describes each and every of the 5 different tutorials (see tutorial1 to tutorial5 in the api documentation).</p>
+<ul>
+  <li><a href="tutorial1-module.html">Tutorial 1</a> is about a simple polynomial regression with one variable (we evolve an equation with operations on one x variable). </li>
+  <li><a href="tutorial2-module.html">Tutorial 2</a> is about a simple polynomial regression with two variables and Integers Random Constants (we evolve an equation with operations on an x and a y variables)</li>
+  <li><a href="tutorial3-module.html">Tutorial 3</a> is about evolving a forest of trees in a certain order. Each tree being a different polynomial, able to reuse previous trees. This is the equivalent of Strongly Typed ADF. (we evolve a system of interdependant equations) </li>
+  <li><a href="tutorial4-module.html">Tutorial 4</a> is like tutorial 3, but shows how to modify the system to run an evolution through 1000 different data points without having to evaluate a tree 1000 times but simply one time! (we plug an list of data as input to the tree, rather than evaluate the tree multiple times) </li>
+  <li><a href="tutorial5-module.html">Tutorial 5</a> shows how to evolve a hybrid system mixing discretes and continuous values, arithmetic and logical operators. (we evolve a system of equations mixed with if then else type of rules.e.g. if A then equation 1 else equation 2) </li>
+</ul>
+<h3>&nbsp;</h3>
+<h3>Quick Run </h3>
+<p>To execute the evolution run of the first tutorial, create a main method in Python (there is one main module already made for you in the package if you want...).<br />
+  Inside, you need to:<br />
+  1- import the module called &quot;evolver&quot;<br />
+  2- define a name and path for you database.<br />
+  3- and then call the EvolutionRun method from the evolver module.<br />
+  e.g. of a main file:<br />
+  <br />
+import evolver</p>
+<p>if __name__ == &quot;__main__&quot;:</p>
+<blockquote>
+  <p>dbname=r'C:\pop_db' <br />
+    evolver.EvolutionRun(2000,(0,1,'root'),2,8,'AddHalfNode',100, 0.001 ,0.5,0.49,dbname,True)</p>
+</blockquote>
+<p><br />
+  This means that we define:</p>
+<ul>
+  <li>a population size of 2000 individuals,</li>
+  <li>a root node with 1 child</li>
+  <li>a minimum tree depth of 2</li>
+  <li>a maximum tree depth of 8</li>
+  <li>the use of a Ramped half and Half Koza tree building method</li>
+  <li>a maximum number of runs of 100 generations before we stop</li>
+  <li>a stoping fitness criteria of 0.001 (if the fitness&lt;=0.001, solution found)</li>
+  <li>a crossover probability of 0.5</li>
+  <li>a mutation probability of 0.49</li>
+  <li>a reproduction probability of 0.01</li>
+  <li>a database of name and path dbname</li>
+  <li>a run done in verbose mode (printing the fittest element of each generation) </li>
+</ul>
+<p>The run will create a database file containing tables of names tab0, tab1,... where every table contains the population for the corresponding generation. </p>
+<p>For those who want details of the populations, there are methods in the module writepop that allow to:<br />
+  - get stats from a database table: GetPopStatFromDB(dbname,tablename)<br />
+  - print the population from a database table to a file: PrintPopFromDB(dbname,tablename,filename)</p>
+<p>On a more personal note, I enjoyed programming this API using the Eclipse IDE (there is a <a href="http://sourceforge.net/projects/pydev/">pyDev</a> module that allows to use Eclipse to program in Python).</p>
+<p>It's great and I recommend it !  </p>
+<p>Feedback and input are highly welcomed :)</p>
+<h3>Interesting links:</h3>
+<p><a href="http://cs.gmu.edu/~eclab/projects/ecj/">ECJ</a> : Java Genetic Programming Package</p>
+<p><a href="http://sourceforge.net/projects/pygp/">pyGP</a> : The Python Genetic Programming Project implements a Genetic Programming System a la J Koza in Python.                          </p>
+<p><a href="https://sourceforge.net/projects/dione/">Dione</a> : Genetic Programming framework written in Python. Takes advantage of  python\'s compiler to make things simple. Includes basic genetic  operations (rank/roulette selection,crossover,mutation,steady  state,elitistm ...)</p>
+<h3>Personal WebPage </h3>
+<p><a href="http://userweb.port.ac.uk/~khourym/">Here</a></p>
+</body>
+</html>

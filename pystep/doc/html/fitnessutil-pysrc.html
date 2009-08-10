@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>fitnessutil</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;fitnessutil
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="fitnessutil-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="fitnessutil-module.html">Module fitnessutil</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">fitnessutil</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">===========</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">Contains different methods used for problem specific fitness functions.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">These are domain dependent utilities that are used for computing the fitness </tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">function. e.g. the problem is about reading a list of motion capture frames and</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">we need a function that gives indexes of different groups of frames.   </tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">THE SOFTWARE.</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">@author: by Mehdi Khoury</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">@version: 1.00</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">@copyright: (c) 2009 Mehdi Khoury under the mit license</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">http://www.opensource.org/licenses/mit-license.html</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">@contact: mehdi.khoury at gmail.com</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">timeit</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">psyco</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">random</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">copy</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment">#import settings</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment">#import tutorial8</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">csv</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-name">psyco</tt><tt class="py-op">.</tt><tt class="py-name">profile</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="GetIndexesOfGroupsInList"></a><div id="GetIndexesOfGroupsInList-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="GetIndexesOfGroupsInList-toggle" onclick="return toggle('GetIndexesOfGroupsInList');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fitnessutil-module.html#GetIndexesOfGroupsInList">GetIndexesOfGroupsInList</a><tt class="py-op">(</tt><tt class="py-param">ml</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GetIndexesOfGroupsInList-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="GetIndexesOfGroupsInList-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">    Function:  GetIndexesOfGroupsInList</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">    ===================================</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">    finds groups of identical elements in a list and gives their starting and last indexes. </tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring"> </tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">    @param ml: a list of elements. e.g. ml=[1,1,1,1,1,2,2,3,4,5,5,5,6]</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">    returns: A list of tuples, where each tuple is of the form </tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">    (group_discrete_val,group_first_ind,group_last_ind). </tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">    e.g.  [(1, 0, 4), (2, 5, 6), (3, 7, 7), (4, 8, 8), (5, 9, 11), (6, 12, 12)]</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring"> </tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt>  </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-name">temp</tt><tt class="py-op">=</tt><tt class="py-name">ml</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-name">output</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt class="py-name">group_discrete_val</tt><tt class="py-op">=</tt><tt class="py-name">temp</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-name">group_first_ind</tt><tt class="py-op">=</tt><tt class="py-number">0</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-name">group_last_ind</tt><tt class="py-op">=</tt><tt class="py-number">0</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-0" class="py-name" targets="Variable tutorial1.i=tutorial1-module.html#i,Variable tutorial2.i=tutorial2-module.html#i,Variable tutorial3.i=tutorial3-module.html#i,Variable tutorial4.i=tutorial4-module.html#i,Variable tutorial5.i=tutorial5-module.html#i"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-0', 'i', 'link-0');">i</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">ml</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ml</tt><tt class="py-op">[</tt><tt id="link-1" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-1', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">==</tt><tt class="py-name">temp</tt><tt class="py-op">:</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-name">group_last_ind</tt><tt class="py-op">=</tt><tt class="py-name">group_last_ind</tt><tt class="py-op">+</tt><tt class="py-number">1</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">ml</tt><tt class="py-op">[</tt><tt id="link-2" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-2', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">!=</tt><tt class="py-name">temp</tt><tt class="py-op">:</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">            <tt class="py-name">output</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">group_discrete_val</tt><tt class="py-op">,</tt><tt class="py-name">group_first_ind</tt><tt class="py-op">,</tt><tt class="py-name">group_last_ind</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">            <tt class="py-name">temp</tt><tt class="py-op">=</tt><tt class="py-name">ml</tt><tt class="py-op">[</tt><tt id="link-3" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-3', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">            <tt class="py-name">group_discrete_val</tt><tt class="py-op">=</tt><tt class="py-name">temp</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">            <tt class="py-name">group_first_ind</tt><tt class="py-op">=</tt><tt id="link-4" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-4', 'i', 'link-0');">i</a></tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">            <tt class="py-name">group_last_ind</tt><tt class="py-op">=</tt><tt id="link-5" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-5', 'i', 'link-0');">i</a></tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-6" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-6', 'i', 'link-0');">i</a></tt><tt class="py-op">==</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">ml</tt><tt class="py-op">)</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">            <tt class="py-name">output</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt class="py-name">group_discrete_val</tt><tt class="py-op">,</tt><tt class="py-name">group_first_ind</tt><tt class="py-op">,</tt><tt class="py-name">group_last_ind</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">output</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="GetInputDataFromFile"></a><div id="GetInputDataFromFile-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="GetInputDataFromFile-toggle" onclick="return toggle('GetInputDataFromFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fitnessutil-module.html#GetInputDataFromFile">GetInputDataFromFile</a><tt class="py-op">(</tt><tt class="py-param">myfile</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GetInputDataFromFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="GetInputDataFromFile-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt class="py-name">ifile</tt>  <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">myfile</tt><tt class="py-op">,</tt> <tt class="py-string">"rb"</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt class="py-name">reader</tt> <tt class="py-op">=</tt> <tt class="py-name">csv</tt><tt class="py-op">.</tt><tt class="py-name">reader</tt><tt class="py-op">(</tt><tt class="py-name">ifile</tt><tt class="py-op">,</tt> <tt class="py-name">delimiter</tt><tt class="py-op">=</tt><tt class="py-string">"\t"</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-name">data</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">    <tt class="py-name">rownum</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">row</tt> <tt class="py-keyword">in</tt> <tt class="py-name">reader</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">mystrline</tt><tt class="py-op">=</tt> <tt class="py-name">row</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-name">y</tt> <tt class="py-op">=</tt> <tt class="py-name">eval</tt><tt class="py-op">(</tt><tt class="py-name">mystrline</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt>  </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-name">data</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt id="link-7" class="py-name" targets="Function fitnessutil.GetIndexesOfGroupsInList()=fitnessutil-module.html#GetIndexesOfGroupsInList"><a title="fitnessutil.GetIndexesOfGroupsInList" class="py-name" href="#" onclick="return doclink('link-7', 'GetIndexesOfGroupsInList', 'link-7');">GetIndexesOfGroupsInList</a></tt><tt class="py-op">(</tt><tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">y</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">    <tt class="py-name">ifile</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">data</tt> </tt>
+</div><a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="ReplaceUsingBinaryMask"></a><div id="ReplaceUsingBinaryMask-def"><a name="L78"></a><tt class="py-lineno"> 78</tt> <a class="py-toggle" href="#" id="ReplaceUsingBinaryMask-toggle" onclick="return toggle('ReplaceUsingBinaryMask');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fitnessutil-module.html#ReplaceUsingBinaryMask">ReplaceUsingBinaryMask</a><tt class="py-op">(</tt><tt class="py-param">listElem</tt><tt class="py-op">,</tt><tt class="py-param">binarymask</tt><tt class="py-op">,</tt><tt class="py-param">initial</tt><tt class="py-op">,</tt><tt class="py-param">replacement</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReplaceUsingBinaryMask-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ReplaceUsingBinaryMask-expanded"><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">         </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-name">copy</tt><tt class="py-op">.</tt><tt class="py-name">deepcopy</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-8" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-8', 'i', 'link-0');">i</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">j</tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt id="link-9" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-9', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-comment">#print listElem[i][0][j][0]</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt id="link-10" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-10', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">==</tt><tt class="py-name">initial</tt> <tt class="py-keyword">and</tt> <tt class="py-name">binarymask</tt><tt class="py-op">[</tt><tt id="link-11" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-11', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                    <tt class="py-name">result</tt><tt class="py-op">[</tt><tt id="link-12" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-12', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">=</tt><tt class="py-op">(</tt><tt class="py-name">replacement</tt><tt class="py-op">,</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt id="link-13" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-13', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt id="link-14" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-14', 'i', 'link-0');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-name">j</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                 </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt>     </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-15" class="py-name" targets="Class treeutil.WrongValues=treeutil.WrongValues-class.html"><a title="treeutil.WrongValues" class="py-name" href="#" onclick="return doclink('link-15', 'WrongValues', 'link-15');">WrongValues</a></tt><tt class="py-op">,</tt> <tt class="py-string">"Wrong values sent to function node.\nCan't get result"</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-name">exit</tt> </tt>
+</div><a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"> </tt>
+<a name="UncompressList"></a><div id="UncompressList-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="UncompressList-toggle" onclick="return toggle('UncompressList');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="fitnessutil-module.html#UncompressList">UncompressList</a><tt class="py-op">(</tt><tt class="py-param">listTuples</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UncompressList-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="UncompressList-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">elem</tt> <tt class="py-keyword">in</tt> <tt class="py-name">listTuples</tt><tt class="py-op">:</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">        <tt class="py-comment">#temp=[]</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-16" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-16', 'i', 'link-0');">i</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt><tt class="py-name">elem</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">            <tt class="py-name">result</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">elem</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt class="py-comment">#ifile  = open('python_testdata/Boxer3_11_2TestData.csv', "rb")</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-comment">#reader = csv.reader(ifile, delimiter="\t")</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">     </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-comment">#rownum = 0</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment">#for row in reader:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-comment">#    mystrline= row[0]</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-comment">#    y = eval(mystrline.strip()) </tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-comment">#    print GetIndexesOfGroupsInList(list(y))</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">     </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-comment">#ifile.close()</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-string">'ok'</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-name">Boxer1_1_1TestData</tt><tt class="py-op">=</tt><tt id="link-17" class="py-name" targets="Function fitnessutil.GetInputDataFromFile()=fitnessutil-module.html#GetInputDataFromFile"><a title="fitnessutil.GetInputDataFromFile" class="py-name" href="#" onclick="return doclink('link-17', 'GetInputDataFromFile', 'link-17');">GetInputDataFromFile</a></tt><tt class="py-op">(</tt><tt class="py-string">'python_testdata/Boxer1_1_1TestData.csv'</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt class="py-comment">#print ReplaceWithBinaryMask(settings.inputdata,tutorial8.IsLong(settings.inputdata),7,1)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">     </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_1_1IdealData=[(7, 0, 26), (1, 27, 57), (7, 58, 155), (1, 156, 192), (7, 193, 287), (1, 288, 327), (7, 328, 414), (1, 415, 452), (7, 453, 665)]   </tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_1_2IdealData=[(7, 0, 16), (1, 17, 70), (7, 71, 155), (1, 156, 211), (7, 212, 294), (1, 295, 349), (7, 350, 426), (1, 427, 487), (7, 488, 960)]</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_3_1IdealData=[(7, 0, 37), (6, 38, 80), (7, 81, 169), (6, 170, 214), (7, 215, 316), (6, 317, 364), (7, 365, 453), (6, 454, 500), (7, 501, 637)]</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_3_2IdealData=[(7, 0, 50), (6, 51, 101), (7, 102, 208), (6, 209, 264), (7, 265, 371), (6, 372, 430), (7, 431, 536), (6, 537, 591), (7, 592, 770)]</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_5_1IdealData=[(7, 0, 65), (3, 66, 122), (7, 123, 233), (3, 234, 284), (7, 285, 399), (3, 400, 453), (7, 454, 571), (3, 572, 624), (7, 625, 751)]</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_5_2IdealData=[(7, 0, 52), (3, 53, 120), (7, 121, 222), (3, 223, 291), (7, 292, 403), (3, 404, 473), (7, 474, 579), (3, 580, 643), (7, 644, 769)]</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_7_1IdealData=[(7, 0, 2), (2, 3, 67), (7, 68, 185), (2, 186, 254), (7, 255, 375), (2, 376, 447), (7, 448, 561), (2, 562, 631), (7, 632, 796)]</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_7_2IdealData=[(7, 0, 61), (2, 62, 129), (7, 130, 238), (2, 239, 304), (7, 305, 419), (2, 420, 488), (7, 489, 616), (2, 617, 680), (7, 681, 801)]</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_8_1IdealData=[(7, 0, 34), (5, 35, 142), (7, 143, 214), (5, 215, 327), (7, 328, 407), (5, 408, 517), (7, 518, 604), (5, 605, 705), (7, 706, 801)]</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_8_2IdealData=[(7, 0, 76), (5, 77, 171), (7, 172, 270), (5, 271, 354), (7, 355, 454), (5, 455, 550), (7, 551, 644), (5, 645, 747), (7, 748, 876)]</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_11_1IdealData=[(7, 0, 65), (1, 66, 83), (7, 84, 86), (6, 87, 123), (7, 124, 263), (1, 264, 282), (7, 283, 285), (6, 286, 322), (7, 323, 467), (1, 468, 486), (7, 487, 490), (6, 491, 529), (7, 530, 677), (1, 678, 699), (6, 700, 738), (7, 739, 861)]</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_11_2IdealData=[(7, 0, 87), (1, 88, 110), (7, 111, 116), (6, 117, 167), (7, 168, 336), (1, 337, 356), (7, 357, 364), (6, 365, 416), (7, 417, 568), (1, 569, 589), (7, 590, 597), (6, 598, 650), (7, 651, 809), (1, 810, 832), (7, 833, 837), (6, 838, 888), (7, 889, 1015)]</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_14_1IdealData=[(7, 0, 84), (1, 85, 100), (3, 101, 159), (7, 160, 358), (1, 359, 380), (3, 381, 442), (7, 443, 623), (1, 624, 642), (3, 643, 702), (7, 703, 864), (1, 865, 882), (3, 883, 940), (7, 941, 1068)]</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_14_2IdealData=[(7, 0, 73), (1, 74, 88), (7, 89, 94), (3, 95, 165), (7, 166, 311), (1, 312, 326), (7, 327, 333), (3, 334, 401), (7, 402, 546), (1, 547, 569), (7, 570, 572), (3, 573, 642), (7, 643, 793), (1, 794, 811), (7, 812, 818), (3, 819, 887), (7, 888, 1015)]</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_15_1IdealData=[(7, 0, 62), (1, 63, 73), (7, 74, 83), (6, 84, 104), (7, 105, 109), (2, 110, 153), (7, 154, 338), (1, 339, 355), (6, 356, 381), (7, 382, 383), (2, 384, 435), (7, 436, 603), (1, 604, 620), (7, 621, 623), (6, 624, 646), (2, 647, 707), (7, 708, 907), (1, 908, 924), (7, 925, 928), (6, 929, 950), (7, 951, 956), (2, 957, 1007), (7, 1008, 1184)]</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer1_15_2IdealData=[(7, 0, 99), (1, 100, 117), (7, 118, 130), (6, 131, 158), (7, 159, 163), (2, 164, 218), (7, 219, 412), (1, 413, 430), (7, 431, 439), (6, 440, 476), (7, 477, 482), (2, 483, 538), (7, 539, 751), (1, 752, 771), (7, 772, 782), (6, 783, 821), (7, 822, 826), (2, 827, 886), (7, 887, 1092), (1, 1093, 1110), (7, 1111, 1122), (6, 1123, 1151), (7, 1152, 1157), (2, 1158, 1214), (7, 1215, 1451)]</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_1_1IdealData=[(7, 0, 170), (1, 171, 189), (7, 190, 312), (1, 313, 329), (7, 330, 451), (1, 452, 472), (7, 473, 585), (1, 586, 612), (7, 613, 763)]</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_1_2IdealData=[(7, 0, 244), (1, 245, 279), (7, 280, 404), (1, 405, 445), (7, 446, 561), (1, 562, 613), (7, 614, 724), (1, 725, 772), (7, 773, 940)]</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_3_1IdealData=[(7, 0, 135), (6, 136, 185), (7, 186, 316), (6, 317, 374), (7, 375, 492), (6, 493, 549), (7, 550, 656), (6, 657, 713), (7, 714, 876)]</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_3_2IdealData=[(7, 0, 148), (6, 149, 218), (7, 219, 339), (6, 340, 408), (7, 409, 530), (6, 531, 600), (7, 601, 715), (6, 716, 783), (7, 784, 918)]</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_5_1IdealData=[(7, 0, 153), (3, 154, 203), (7, 204, 326), (3, 327, 377), (7, 378, 496), (3, 497, 545), (7, 546, 665), (3, 666, 724), (7, 725, 851)]</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_5_2IdealData=[(7, 0, 145), (3, 146, 199), (7, 200, 339), (3, 340, 392), (7, 393, 517), (3, 518, 573), (7, 574, 692), (3, 693, 753), (7, 754, 885)]</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_7_1IdealData=[(7, 0, 133), (2, 134, 169), (7, 170, 333), (2, 334, 386), (7, 387, 531), (2, 532, 589), (7, 590, 730), (2, 731, 791), (7, 792, 908)]</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_7_2IdealData=[(7, 0, 139), (2, 140, 178), (7, 179, 346), (2, 347, 389), (7, 390, 544), (2, 545, 581), (7, 582, 737), (2, 738, 788), (7, 789, 907)]</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_8_1IdealData=[(7, 0, 93), (5, 94, 190), (7, 191, 317), (5, 318, 416), (7, 417, 543), (5, 544, 637), (7, 638, 757), (5, 758, 858), (7, 859, 1008)]</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_8_1IdealData=[(7, 0, 117), (5, 118, 196), (7, 197, 333), (5, 334, 425), (7, 426, 554), (5, 555, 645), (7, 646, 773), (5, 774, 868), (7, 869, 995)]</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_11_1IdealData=[(7, 0, 157), (1, 158, 170), (7, 171, 178), (6, 179, 217), (7, 218, 359), (1, 360, 375), (7, 376, 380), (6, 381, 416), (7, 417, 571), (1, 572, 587), (7, 588, 592), (6, 593, 632), (7, 633, 783), (1, 784, 798), (7, 799, 803), (6, 804, 846), (7, 847, 990)]</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer2_11_2IdealData=[(7, 0, 139), (1, 140, 156), (7, 157, 177), (3, 179, 224), (7, 225, 645), (1, 646, 654), (7, 655, 674), (6, 675, 721), (7, 722, 865), (1, 866, 879), (7, 880, 898), (6, 899, 946), (7, 947, 1081), (1, 1082, 1095), (7, 1096, 1109), (6, 1110, 1156), (7, 1157, 1288)]</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_1_1IdealData=[(7, 0, 135), (1, 136, 147), (7, 148, 203), (1, 204, 209), (7, 210, 272), (1, 273, 282), (7, 283, 336), (1, 337, 348), (7, 349, 504)]</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_1_2IdealData=[(7, 0, 206), (1, 207, 220), (7, 221, 311), (1, 312, 323), (7, 324, 408), (1, 409, 421), (7, 422, 503), (1, 504, 517), (7, 518, 644)]</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_3_1IdealData=[(7, 0, 115), (6, 116, 144), (7, 145, 200), (6, 201, 231), (7, 232, 293), (6, 294, 326), (7, 327, 384), (6, 385, 417), (7, 418, 554)]</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_3_2IdealData=[(7, 0, 146), (6, 147, 187), (7, 188, 296), (6, 297, 338), (7, 339, 430), (6, 431, 478), (7, 479, 565), (6, 566, 611), (7, 612, 761)]</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_5_1IdealData=[(7, 0, 109), (3, 110, 156), (7, 157, 249), (3, 250, 295), (7, 296, 390), (3, 391, 436), (7, 437, 519), (3, 520, 566), (7, 567, 703)]</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_5_2IdealData=[(7, 0, 174), (3, 175, 234), (7, 235, 335), (3, 336, 383), (7, 384, 487), (3, 488, 537), (7, 538, 641), (3, 642, 705), (7, 706, 842)]</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_7_1IdealData=[(7, 0, 153), (2, 154, 186), (7, 187, 319), (2, 320, 361), (7, 362, 487), (2, 487, 526), (7, 527, 653), (2, 654, 696), (7, 697, 863)]</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_7_2IdealData=[(7, 0, 160), (2, 161, 211), (7, 212, 346), (2, 347, 404), (7, 405, 528), (2, 529, 586), (7, 587, 701), (2, 702, 754), (7, 755, 909)]</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_8_1IdealData=[(7, 0, 133), (5, 134, 199), (7, 200, 309), (5, 310, 380), (7, 381, 481), (5, 482, 556), (7, 557, 654), (5, 655, 727), (7, 728, 885)]</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_8_2IdealData=[(7, 0, 134), (5, 135, 230), (7, 231, 301), (5, 302, 420), (7, 421, 514), (5, 515, 617), (7, 618, 699), (5, 700, 795), (7, 796, 941)]</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_11_1IdealData=[(7, 0, 110), (1, 111, 116), (7, 117, 133), (6, 134, 162), (7, 163, 252), (1, 253, 259), (7, 260, 276), (6, 277, 304), (7, 305, 391), (1, 392, 400), (7, 401, 416), (6, 417, 443), (7, 444, 523), (1, 524, 530), (7, 531, 548), (6, 549, 578), (7, 579, 759)]</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-comment">#    Boxer3_11_2IdealData=[(7, 0, 133), (1, 134, 149), (7, 150, 176), (6, 177, 217), (7, 219, 348), (1, 349, 368), (7, 369, 392), (6, 393, 437), (7, 438, 565), (1, 566, 579), (7, 580, 598), (6, 599, 644), (7, 645, 752), (1, 753, 773), (7, 774, 791), (6, 792, 835), (7, 836, 1029)]</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-comment">#    </tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line"> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt class="py-comment">#ml=[]</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-comment">#for i in xrange(1000):</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-comment">#    ml.append(random.randint(1,7))</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">    <tt class="py-comment">#t1 = timeit.Timer('fitnessutil.GetIndexesOfGroupsInList(ml)' ,  'from __main__ import ml ;import fitnessutil')</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-comment">#print t1.repeat(1,300)</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 15 11:36:18 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

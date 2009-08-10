@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>tutorial2</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;tutorial2
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="tutorial2-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module tutorial2</h1><p class="nomargin-top"><span class="codelink"><a href="tutorial2-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="heading">tutorial2</h1>
+    <p>Contains all parameters for the evolutionary run, grammar rules, 
+    constraints, and specifics about the terminal and function set of the 
+    trees in tutorial2. This example file gather all the settings for a 
+    simple polynomial regression using this time 2 variables x and y, and 
+    adding random integer constants between 1 and 5, and the following 
+    mathematical operators: '+','-','neg','*','^2'(or square). We try to 
+    find the following polynomial: x^2+3y+4 from 5 sets of testing data (5 
+    different values for x and y). As Koza said, random constants are the 
+    &quot;skeleton in Genetic Programming closet&quot;. Using them will 
+    definitely slow down a search... Any suggestions of current alternative
+    strategies solving this problem would be highly welcomed :) Considering
+    the constraints for building the trees, the root node will only have 
+    one child, and there will be no need for ADF in the function and 
+    terminal set. A typical way to run the tutorial would be to:</p>
+    <ul>
+      <li>
+        modify the settings file so that:
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>    <span class="py-comment">#setup for running tutorial 2</span>
+<span class="py-output">        functions = tutorial2.functions</span>
+<span class="py-output">        crossover_mapping=tutorial2.crossover_mapping</span>
+<span class="py-output">        nb_eval=tutorial2.nb_eval</span>
+<span class="py-output">        ideal_results=tutorial2.GetIdealResultsData()</span>
+<span class="py-output">        terminals =tutorial2.terminals</span>
+<span class="py-output">        Strongly_Typed_Crossover_degree=tutorial2.Strongly_Typed_Crossover_degree</span>
+<span class="py-output">        Substitute_Mutation=tutorial2.Substitute_Mutation</span>
+<span class="py-output">        treeRules = tutorial2.treeRules</span>
+<span class="py-output">        adfOrdered = tutorial2.adfOrdered</span>
+<span class="py-output">        FitnessFunction = tutorial2.FitnessFunction</span></pre>
+      </li>
+      <li>
+        run the evolution in the main method, and make sure that the root 
+        node parameter only have one child.e.g.
+<pre class="py-doctest">
+<span class="py-prompt">&gt;&gt;&gt; </span>   <span class="py-keyword">import</span> evolver
+<span class="py-output">if __name__ == &quot;__main__&quot;:</span>
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>   dbname=r<span class="py-string">'C:\pop_db'</span>
+<span class="py-prompt">&gt;&gt;&gt; </span>   evolver.EvolutionRun(2000,(0,1,<span class="py-string">'root'</span>),2,8,<span class="py-string">'AddHalfNode'</span>,100, 0.00001 ,0.5,0.49,7,0.8,dbname,True)</pre>
+        <p>This means that we define:</p>
+      </li>
+      <li>
+        a population size of 2000 individuals,
+      </li>
+      <li>
+        a root node with 1 child
+      </li>
+      <li>
+        a minimum tree depth of 2
+      </li>
+      <li>
+        a maximum tree depth of 8
+      </li>
+      <li>
+        the use of a Ramped half and Half Koza tree building method
+      </li>
+      <li>
+        a maximum number of runs of 100 generations before we stop
+      </li>
+      <li>
+        a stoping fitness criteria of 0.1 (if the fitness&lt;=0.1, solution
+        found)
+      </li>
+      <li>
+        a crossover probability of 0.5
+      </li>
+      <li>
+        a mutation probability of 0.49
+      </li>
+      <li>
+        a reproduction probability of 0.01 (automatically deduced from the 
+        2 previous values)
+      </li>
+      <li>
+        the size of the tournament selection
+      </li>
+      <li>
+        the probability of selecting the fitttest during tournament 
+        selection
+      </li>
+      <li>
+        a database of name and path dbname
+      </li>
+      <li>
+        a run done in verbose mode (printing the fittest element of each 
+        generation)
+      </li>
+    </ul>
+    <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY 
+    KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
+    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        by Mehdi Khoury
+      </p>
+      <p><strong>Version:</strong>
+        1.00
+      </p>
+      <p><strong>Copyright:</strong>
+        (c) 2009 Mehdi Khoury under the mit license 
+        http://www.opensource.org/licenses/mit-license.html
+      </p>
+      <p><strong>Contact:</strong>
+        mehdi.khoury at gmail.com
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="add"></a><span class="summary-sig-name">add</span>(<span class="summary-sig-arg">listElem</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#add">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="sub"></a><span class="summary-sig-name">sub</span>(<span class="summary-sig-arg">listElem</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#sub">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="neg"></a><span class="summary-sig-name">neg</span>(<span class="summary-sig-arg">listElem</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#neg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="multiply"></a><span class="summary-sig-name">multiply</span>(<span class="summary-sig-arg">listElem</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#multiply">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="square"></a><span class="summary-sig-name">square</span>(<span class="summary-sig-arg">listElem</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#square">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="rootBranch"></a><span class="summary-sig-name">rootBranch</span>(<span class="summary-sig-arg">x</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#rootBranch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GetIdealResultsData"></a><span class="summary-sig-name">GetIdealResultsData</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#GetIdealResultsData">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="FitnessFunction"></a><span class="summary-sig-name">FitnessFunction</span>(<span class="summary-sig-arg">my_tree</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="tutorial2-pysrc.html#FitnessFunction">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#functions" class="summary-name">functions</a> = <code title="{'+': add, '-': sub, 'neg': neg, '*': multiply, '^2': square, 'root': \
+rootBranch}">{'+': add, '-': sub, 'neg': neg, '*': multiply, '^<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="nb_eval"></a><span class="summary-name">nb_eval</span> = <code title="5">5</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#all_x" class="summary-name">all_x</a> = <code title="[4.22953622342,
+ 8.17695395192,
+ 1.46014159219,
+ 3.15088751639,
+ 9.98474483774]"><code class="variable-group">[</code>4.22953622342<code class="variable-op">, </code>8.17695395192<code class="variable-op">, </code>1.46014159219<code class="variable-op">, </code>3.150887<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#all_y" class="summary-name">all_y</a> = <code title="[6.04012139789,
+ 0.368743384364,
+ 2.44220143149,
+ 5.64401334673,
+ 8.21405193158]"><code class="variable-group">[</code>6.04012139789<code class="variable-op">, </code>0.368743384364<code class="variable-op">, </code>2.44220143149<code class="variable-op">, </code>5.64401<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ideal_results"></a><span class="summary-name">ideal_results</span> = <code title="[]"><code class="variable-group">[</code><code class="variable-group">]</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#terminals" class="summary-name">terminals</a> = <code title="{':1': 0,
+ ':2': 1,
+ ':3': 2,
+ ':4': 3,
+ ':5': 4,
+ 'x': [4.22953622342,
+       8.17695395192,
+       1.46014159219,
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-op">: </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:2</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:3</code><code class="variable-quote">'</code><code class="variable-op">: </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:4</code><code class="variable-quote">'</code><code class="variable-op">: </code>3<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:5</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-op">:</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#set_ERC" class="summary-name">set_ERC</a> = <code title="[(4, 0, ':1'), (4, 0, ':2'), (4, 0, ':3'), (4, 0, ':4'), (4, 0, ':5')]"><code class="variable-group">[</code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:2</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:3</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="crossover_mapping"></a><span class="summary-name">crossover_mapping</span> = <code title="[]"><code class="variable-group">[</code><code class="variable-group">]</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#defaultFunctionSet" class="summary-name">defaultFunctionSet</a> = <code title="[(1, 2, '+'), (1, 2, '*'), (1, 2, '-'), (1, 1, 'neg'), (1, 1, '^2')]"><code class="variable-group">[</code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">+</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">*</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#defaultTerminalSet" class="summary-name">defaultTerminalSet</a> = <code title="[(3, 0, 'x'),
+ (3, 0, 'y'),
+ (4, 0, ':1'),
+ (4, 0, ':2'),
+ (4, 0, ':3'),
+ (4, 0, ':4'),
+ (4, 0, ':5')]"><code class="variable-group">[</code><code class="variable-group">(</code>3<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>3<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">y</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="tutorial2-module.html#treeRules" class="summary-name">treeRules</a> = <code title="{'*': [([(1, 2, '+'),
+         (1, 2, '*'),
+         (1, 2, '-'),
+         (1, 1, 'neg'),
+         (1, 1, '^2')],
+        [(3, 0, 'x'),
+         (3, 0, 'y'),
+         (4, 0, ':1'),
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">*</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-group">[</code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">+</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">*</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="Strongly_Typed_Crossover_degree"></a><span class="summary-name">Strongly_Typed_Crossover_degree</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="Substitute_Mutation"></a><span class="summary-name">Substitute_Mutation</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="adfOrdered"></a><span class="summary-name">adfOrdered</span> = <code title="False">False</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="i"></a><span class="summary-name">i</span> = <code title="4">4</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="functions"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">functions</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+{'+': add, '-': sub, 'neg': neg, '*': multiply, '^2': square, 'root': <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+rootBranch}
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="all_x"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">all_x</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code>4.22953622342<code class="variable-op">,</code>
+ 8.17695395192<code class="variable-op">,</code>
+ 1.46014159219<code class="variable-op">,</code>
+ 3.15088751639<code class="variable-op">,</code>
+ 9.98474483774<code class="variable-group">]</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="all_y"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">all_y</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code>6.04012139789<code class="variable-op">,</code>
+ 0.368743384364<code class="variable-op">,</code>
+ 2.44220143149<code class="variable-op">,</code>
+ 5.64401334673<code class="variable-op">,</code>
+ 8.21405193158<code class="variable-group">]</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="terminals"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">terminals</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-op">: </code>0<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">:2</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">:3</code><code class="variable-quote">'</code><code class="variable-op">: </code>2<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">:4</code><code class="variable-quote">'</code><code class="variable-op">: </code>3<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">:5</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">[</code>4.22953622342<code class="variable-op">,</code>
+       8.17695395192<code class="variable-op">,</code>
+       1.46014159219<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_ERC"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">set_ERC</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:2</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:3</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:4</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:5</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-group">]</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="defaultFunctionSet"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">defaultFunctionSet</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">+</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">*</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">neg</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code>1<code class="variable-op">, </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">^2</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-group">]</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="defaultTerminalSet"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">defaultTerminalSet</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">[</code><code class="variable-group">(</code>3<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code>3<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">y</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:2</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:3</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:4</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:5</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-group">]</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="treeRules"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">treeRules</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">*</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-group">[</code><code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">+</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+         <code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">*</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+         <code class="variable-group">(</code>1<code class="variable-op">, </code>2<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">-</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+         <code class="variable-group">(</code>1<code class="variable-op">, </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">neg</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+         <code class="variable-group">(</code>1<code class="variable-op">, </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">^2</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-group">]</code><code class="variable-op">,</code>
+        <code class="variable-group">[</code><code class="variable-group">(</code>3<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+         <code class="variable-group">(</code>3<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">y</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+         <code class="variable-group">(</code>4<code class="variable-op">, </code>0<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">:1</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 15 11:36:18 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

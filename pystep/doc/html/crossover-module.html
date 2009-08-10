@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>crossover</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;crossover
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="crossover-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module crossover</h1><p class="nomargin-top"><span class="codelink"><a href="crossover-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="heading">crossover</h1>
+    <p>All crossover related operations. In the context of strongly-typed 
+    Genetic Programming, this operator is heavily modified to produce 
+    offsprings that are compliant with multiple rules and constraints set 
+    by the user. In the present version, only a strongly-typed version of 
+    Koza 1 point crossover is supported.</p>
+    <p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY 
+    KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
+    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        by Mehdi Khoury
+      </p>
+      <p><strong>Version:</strong>
+        1.00
+      </p>
+      <p><strong>Copyright:</strong>
+        (c) 2009 Mehdi Khoury under the mit license 
+        http://www.opensource.org/licenses/mit-license.html
+      </p>
+      <p><strong>Contact:</strong>
+        mehdi.khoury at gmail.com
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="crossover-module.html#Koza1PointCrossover" class="summary-sig-name">Koza1PointCrossover</a>(<span class="summary-sig-arg">maxdepth</span>,
+        <span class="summary-sig-arg">p1</span>,
+        <span class="summary-sig-arg">p2</span>,
+        <span class="summary-sig-arg">p1_mp</span>,
+        <span class="summary-sig-arg">p2_mp</span>,
+        <span class="summary-sig-arg">p1_depth</span>,
+        <span class="summary-sig-arg">p2_depth</span>)</span><br />
+      create 2 offsprings from 2 parents using a modified version of 
+      Koza-1-point crossover.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="crossover-pysrc.html#Koza1PointCrossover">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Koza2PointsCrossover"></a><span class="summary-sig-name">Koza2PointsCrossover</span>(<span class="summary-sig-arg">maxdepth</span>,
+        <span class="summary-sig-arg">parent1</span>,
+        <span class="summary-sig-arg">parent2</span>,
+        <span class="summary-sig-arg">p1_map</span>,
+        <span class="summary-sig-arg">p2_map</span>,
+        <span class="summary-sig-arg">p1_depth</span>,
+        <span class="summary-sig-arg">p2_depth</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="crossover-pysrc.html#Koza2PointsCrossover">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="Koza1PointCrossover"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Koza1PointCrossover</span>(<span class="sig-arg">maxdepth</span>,
+        <span class="sig-arg">p1</span>,
+        <span class="sig-arg">p2</span>,
+        <span class="sig-arg">p1_mp</span>,
+        <span class="sig-arg">p2_mp</span>,
+        <span class="sig-arg">p1_depth</span>,
+        <span class="sig-arg">p2_depth</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="crossover-pysrc.html#Koza1PointCrossover">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <h1 class="heading">Function:  Koza1PointCrossover</h1>
+    <p>create 2 offsprings from 2 parents using a modified version of 
+    Koza-1-point crossover. This version try to produce offsprings 
+    compliant with the constraints and rules used to build an individual. 
+    If it does not manage, it produce a report showing if the offsprings 
+    produced are compatible.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>maxdepth</code></strong> - maximum depth of the mutated offspring</li>
+        <li><strong class="pname"><code>p1</code></strong> - parent tree 1  e.g. 
+          a=buildtree.buildTree().AddHalfNode((0,2,'root'),0,2,7)</li>
+        <li><strong class="pname"><code>p2</code></strong> - parent tree 2  e.g. 
+          a=buildtree.buildTree().AddHalfNode((0,2,'root'),0,2,7)</li>
+        <li><strong class="pname"><code>p1_mp</code></strong> - parent tree index mapping e.g 
+          a_map=crossutil.get_indices_mapping_from_tree(a)</li>
+        <li><strong class="pname"><code>p2_mp</code></strong> - parent tree index mapping e.g 
+          a_map=crossutil.get_indices_mapping_from_tree(a)</li>
+        <li><strong class="pname"><code>p1_depth</code></strong> - parent tree depth e.g. 
+          a_depth=crossutil.get_depth_from_indices_mapping(a_map)</li>
+        <li><strong class="pname"><code>p2_depth</code></strong> - parent tree depth e.g. 
+          a_depth=crossutil.get_depth_from_indices_mapping(a_map)</li>
+    </ul></dd>
+    <dt>Returns:</dt>
+        <dd>a tuple containing 3 elements
+          <ul>
+            <li>
+              The first one is a list of 1 and 0 indicating if the first 
+              and second offspring are rule compliant. [1,1,1,1] 
+              frag2_leaf_compatible_p1 and frag1_leaf_compatible_p2 and 
+              frag2_branch_compatible_p1 and frag1_branch_compatible_p2 
+              [1,0,1,1] frag2_leaf_compatible_p1 and not 
+              frag1_leaf_compatible_p2 and frag2_branch_compatible_p1 and 
+              frag1_branch_compatible_p2 [1,1,0,1] frag2_leaf_compatible_p1
+              and frag1_leaf_compatible_p2 and not 
+              frag2_branch_compatible_p1 and frag1_branch_compatible_p2 and
+              so on... This information can be use to decide if we want to 
+              introduce non-compliant offsprings into the population.
+            </li>
+            <li>
+              The second one is the first offspring
+            </li>
+            <li>
+              The third one is the second offspring
+            </li>
+          </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 15 11:36:18 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

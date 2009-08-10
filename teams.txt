@@ -1,0 +1,25 @@
+65 1. FC Köln
+123 1899 Hoffenheim
+83 Arminia Bielefeld
+6 Bayer Leverkusen
+87 Bor. Mönchengladbach
+7 Borussia Dortmund
+91 Eintracht Frankfurt
+93 Energie Cottbus
+40 FC Bayern München
+9 FC Schalke 04
+100 Hamburger SV
+55 Hannover 96
+54 Hertha BSC
+105 Karlsruher SC
+16 VfB Stuttgart
+129 VfL Bochum
+131 VfL Wolfsburg
+134 Werder Bremen
+79 1. FC Nürnberg
+102 Hansa Rostock
+107 MSV Duisburg
+81 1. FSV Mainz 05
+23 Alemannia Aachen
+76 1. FC Kaiserslautern
+112 SC Freiburg

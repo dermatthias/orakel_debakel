@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>tutorial4</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;tutorial4
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="tutorial4-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="tutorial4-module.html">Module tutorial4</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">tutorial4</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">=========</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">Contains all parameters for the evolutionary run, grammar rules, constraints, </tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">and specifics about the terminal and function set of the trees in tutorial4.</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">This example file gather all the settings for a 'multiple' polynomial regression.</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">We want to evolve a system of ordered polynomial equations by using the</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">mathematical operators: '+','*' and the ADF: ADF1 and ADF2, in the said order.</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">an ADF2 branch could then call for an ADF1 terminal, but not the opposite.  </tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring">We try to find the following model being shaped as a system of polynomials: </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring">|ADF1=x+y</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring">|ADF2=ADF1^3</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">from 1 set of 1000 testing data (1000 different values for x and y).</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">This time, each tree does not have to be evaluated 1000 times. We will input</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">a list of 1000 data points in the variable leafs of the tree. There is not much time</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">difference to process 1000 data-points than 5 when we use this trick!</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">Considering the constraints for building the trees, the root node will have 2 </tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">children ADF1 and ADF2 (in order), and ADF2 must be able to reuse ADF1 as a </tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">terminal... A typical way to run the tutorial would be to:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">    - modify the settings file so that:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;     # setup for running tutorial 4</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-docstring">            functions = tutorial4.functions</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-docstring">            crossover_mapping=tutorial4.crossover_mapping</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-docstring">            nb_eval=tutorial4.nb_eval</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">            nb_ex=tutorial4.nb_ex</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">            ideal_results=tutorial4.GetIdealResultsData()</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">            terminals =tutorial4.terminals</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">            Strongly_Typed_Crossover_degree=tutorial4.Strongly_Typed_Crossover_degree</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">            Substitute_Mutation=tutorial4.Substitute_Mutation</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">            treeRules = tutorial4.treeRules</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">            adfOrdered = tutorial4.adfOrdered</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">            FitnessFunction = tutorial4.FitnessFunction</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">    - use a different fitness function for the evaluation of a list</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">     of values instead of a value. We create 2 new fitness functions:</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"><tt class="py-docstring">         - EvalTreeForOneListInputSet is a modification of the original </tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-docstring">         EvalTreeForOneInputSet.</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-docstring">         - FinalFitness2 is a modification of FinalFitness that take as input</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">         the result returned by the new EvalTreeForOneListInputSet</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">         </tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">         These fitness functions are called in FitnessFunction in the tutorial4 module. </tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">         </tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">         &gt;&gt;&gt;    def FitnessFunction(my_tree):</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">         &gt;&gt;&gt;        return evalfitness.FinalFitness2(evalfitness.EvalTreeForOneListInputSet(my_tree))  </tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">    - run the evolution in the main method, and make sure that the root node parameter</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">    only have two children.e.g.</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;    import evolver</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">    if __name__ == "__main__":</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;    dbname=r'C:\pop_db'</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">    &gt;&gt;&gt;    evolver.EvolutionRun(2000,(0,2,'root'),2,8,'AddHalfNode',100, 0.00001 ,0.5,0.49,7,0.8,dbname,True)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">    This means that we define:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">    - a population size of 2000 individuals,</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">    - a root node with 2 children</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">    - a minimum tree depth of 2</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">    - a maximum tree depth of 8</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">    - the use of a Ramped half and Half Koza tree building method</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">    - a maximum number of runs of 100 generations before we stop</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">    - a stoping fitness criteria of 0.1 (if the fitness&lt;=0.1, solution found)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">    - a crossover probability of 0.5</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">    - a mutation probability of 0.49</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">    - a reproduction probability of 0.01 (automatically deduced from the 2 previous values)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">    - the size of the tournament selection</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">    - the probability of selecting the fitttest during tournament selection </tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">    - a database of name and path dbname</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-docstring">    - a run done in verbose mode (printing the fittest element of each generation) </tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">    </tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-docstring">THE SOFTWARE.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-docstring">@author: by Mehdi Khoury</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-docstring">@version: 1.00</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-docstring">@copyright: (c) 2009 Mehdi Khoury under the mit license</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-docstring">http://www.opensource.org/licenses/mit-license.html</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-docstring">@contact: mehdi.khoury at gmail.com</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">array</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">psyco</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">random</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module treeutil=treeutil-module.html"><a title="treeutil" class="py-name" href="#" onclick="return doclink('link-0', 'treeutil', 'link-0');">treeutil</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Function treeutil.PostOrder_Search()=treeutil-module.html#PostOrder_Search"><a title="treeutil.PostOrder_Search" class="py-name" href="#" onclick="return doclink('link-1', 'PostOrder_Search', 'link-1');">PostOrder_Search</a></tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">collections</tt> <tt class="py-keyword">import</tt> <tt class="py-name">deque</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Module evalfitness=evalfitness-module.html"><a title="evalfitness" class="py-name" href="#" onclick="return doclink('link-2', 'evalfitness', 'link-2');">evalfitness</a></tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-name">psyco</tt><tt class="py-op">.</tt><tt class="py-name">profile</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-comment"># first, we create result processing methods for each function:</tt> </tt>
+<a name="add"></a><div id="add-def"><a name="L100"></a><tt class="py-lineno">100</tt> <a class="py-toggle" href="#" id="add-toggle" onclick="return toggle('add');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="tutorial4-module.html#add">add</a><tt class="py-op">(</tt><tt class="py-param">listElem</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="add-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="add-expanded"><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-3" class="py-name" targets="Variable tutorial1.i=tutorial1-module.html#i,Variable tutorial2.i=tutorial2-module.html#i,Variable tutorial3.i=tutorial3-module.html#i,Variable tutorial4.i=tutorial4-module.html#i,Variable tutorial5.i=tutorial5-module.html#i"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-3', 'i', 'link-3');">i</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">            <tt class="py-name">result</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt id="link-4" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-4', 'i', 'link-3');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt id="link-5" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-5', 'i', 'link-3');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-6" class="py-name" targets="Class treeutil.WrongValues=treeutil.WrongValues-class.html"><a title="treeutil.WrongValues" class="py-name" href="#" onclick="return doclink('link-6', 'WrongValues', 'link-6');">WrongValues</a></tt><tt class="py-op">,</tt> <tt class="py-string">"Wrong values sent to function node.\nCan't get result"</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-name">exit</tt> </tt>
+</div><a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">     </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="multiply"></a><div id="multiply-def"><a name="L111"></a><tt class="py-lineno">111</tt> <a class="py-toggle" href="#" id="multiply-toggle" onclick="return toggle('multiply');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="tutorial4-module.html#multiply">multiply</a><tt class="py-op">(</tt><tt class="py-param">listElem</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="multiply-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="multiply-expanded"><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-7" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-7', 'i', 'link-3');">i</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">            <tt class="py-name">result</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt id="link-8" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-8', 'i', 'link-3');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">*</tt><tt class="py-name">listElem</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt id="link-9" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-9', 'i', 'link-3');">i</a></tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-10" class="py-name"><a title="treeutil.WrongValues" class="py-name" href="#" onclick="return doclink('link-10', 'WrongValues', 'link-6');">WrongValues</a></tt><tt class="py-op">,</tt> <tt class="py-string">"Wrong values sent to function node.\nCan't get result"</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-name">exit</tt> </tt>
+</div><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="adfBranch"></a><div id="adfBranch-def"><a name="L121"></a><tt class="py-lineno">121</tt> <a class="py-toggle" href="#" id="adfBranch-toggle" onclick="return toggle('adfBranch');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="tutorial4-module.html#adfBranch">adfBranch</a><tt class="py-op">(</tt><tt class="py-param">x</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="adfBranch-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="adfBranch-expanded"><a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">x</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-11" class="py-name"><a title="treeutil.WrongValues" class="py-name" href="#" onclick="return doclink('link-11', 'WrongValues', 'link-6');">WrongValues</a></tt><tt class="py-op">,</tt> <tt class="py-string">"Wrong values sent to function node.\nCan't get result"</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-name">exit</tt> </tt>
+</div><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt>
+<a name="rootBranch"></a><div id="rootBranch-def"><a name="L128"></a><tt class="py-lineno">128</tt> <a class="py-toggle" href="#" id="rootBranch-toggle" onclick="return toggle('rootBranch');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="tutorial4-module.html#rootBranch">rootBranch</a><tt class="py-op">(</tt><tt class="py-param">x</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="rootBranch-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="rootBranch-expanded"><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">x</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt id="link-12" class="py-name"><a title="treeutil.WrongValues" class="py-name" href="#" onclick="return doclink('link-12', 'WrongValues', 'link-6');">WrongValues</a></tt><tt class="py-op">,</tt> <tt class="py-string">"Wrong values sent to function node.\nCan't get result"</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">exit</tt> </tt>
+</div><a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-comment"># then, we create a set of functions and associate them with the corresponding</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-comment"># processing methods</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt id="link-13" class="py-name" targets="Variable settings.functions=settings-module.html#functions,Variable tutorial1.functions=tutorial1-module.html#functions,Variable tutorial2.functions=tutorial2-module.html#functions,Variable tutorial3.functions=tutorial3-module.html#functions,Variable tutorial4.functions=tutorial4-module.html#functions,Variable tutorial5.functions=tutorial5-module.html#functions"><a title="settings.functions
+tutorial1.functions
+tutorial2.functions
+tutorial3.functions
+tutorial4.functions
+tutorial5.functions" class="py-name" href="#" onclick="return doclink('link-13', 'functions', 'link-13');">functions</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'+'</tt><tt class="py-op">:</tt><tt id="link-14" class="py-name" targets="Function tutorial1.add()=tutorial1-module.html#add,Function tutorial2.add()=tutorial2-module.html#add,Function tutorial3.add()=tutorial3-module.html#add,Function tutorial4.add()=tutorial4-module.html#add,Function tutorial5.add()=tutorial5-module.html#add"><a title="tutorial1.add
+tutorial2.add
+tutorial3.add
+tutorial4.add
+tutorial5.add" class="py-name" href="#" onclick="return doclink('link-14', 'add', 'link-14');">add</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">            <tt class="py-string">'*'</tt><tt class="py-op">:</tt><tt id="link-15" class="py-name" targets="Function tutorial1.multiply()=tutorial1-module.html#multiply,Function tutorial2.multiply()=tutorial2-module.html#multiply,Function tutorial3.multiply()=tutorial3-module.html#multiply,Function tutorial4.multiply()=tutorial4-module.html#multiply,Function tutorial5.multiply()=tutorial5-module.html#multiply"><a title="tutorial1.multiply
+tutorial2.multiply
+tutorial3.multiply
+tutorial4.multiply
+tutorial5.multiply" class="py-name" href="#" onclick="return doclink('link-15', 'multiply', 'link-15');">multiply</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">            <tt class="py-string">'adf2_+'</tt><tt class="py-op">:</tt><tt id="link-16" class="py-name"><a title="tutorial1.add
+tutorial2.add
+tutorial3.add
+tutorial4.add
+tutorial5.add" class="py-name" href="#" onclick="return doclink('link-16', 'add', 'link-14');">add</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">            <tt class="py-string">'adf2_*'</tt><tt class="py-op">:</tt><tt id="link-17" class="py-name"><a title="tutorial1.multiply
+tutorial2.multiply
+tutorial3.multiply
+tutorial4.multiply
+tutorial5.multiply" class="py-name" href="#" onclick="return doclink('link-17', 'multiply', 'link-15');">multiply</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-string">'adf1'</tt><tt class="py-op">:</tt><tt id="link-18" class="py-name" targets="Function tutorial3.adfBranch()=tutorial3-module.html#adfBranch,Function tutorial4.adfBranch()=tutorial4-module.html#adfBranch"><a title="tutorial3.adfBranch
+tutorial4.adfBranch" class="py-name" href="#" onclick="return doclink('link-18', 'adfBranch', 'link-18');">adfBranch</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">            <tt class="py-string">'adf2'</tt><tt class="py-op">:</tt><tt id="link-19" class="py-name"><a title="tutorial3.adfBranch
+tutorial4.adfBranch" class="py-name" href="#" onclick="return doclink('link-19', 'adfBranch', 'link-18');">adfBranch</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">            <tt class="py-string">'root'</tt><tt class="py-op">:</tt><tt id="link-20" class="py-name" targets="Function tutorial1.rootBranch()=tutorial1-module.html#rootBranch,Function tutorial2.rootBranch()=tutorial2-module.html#rootBranch,Function tutorial3.rootBranch()=tutorial3-module.html#rootBranch,Function tutorial4.rootBranch()=tutorial4-module.html#rootBranch,Function tutorial5.rootBranch()=tutorial5-module.html#rootBranch"><a title="tutorial1.rootBranch
+tutorial2.rootBranch
+tutorial3.rootBranch
+tutorial4.rootBranch
+tutorial5.rootBranch" class="py-name" href="#" onclick="return doclink('link-20', 'rootBranch', 'link-20');">rootBranch</a></tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">            <tt class="py-op">}</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"><tt class="py-comment"># when swapping subtrees during crossover, we can transform the following branches:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line"><tt class="py-comment"># + can be transformed into ADF2_+, and so on...</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt id="link-21" class="py-name" targets="Variable settings.crossover_mapping=settings-module.html#crossover_mapping,Variable tutorial1.crossover_mapping=tutorial1-module.html#crossover_mapping,Variable tutorial2.crossover_mapping=tutorial2-module.html#crossover_mapping,Variable tutorial3.crossover_mapping=tutorial3-module.html#crossover_mapping,Variable tutorial4.crossover_mapping=tutorial4-module.html#crossover_mapping,Variable tutorial5.crossover_mapping=tutorial5-module.html#crossover_mapping"><a title="settings.crossover_mapping
+tutorial1.crossover_mapping
+tutorial2.crossover_mapping
+tutorial3.crossover_mapping
+tutorial4.crossover_mapping
+tutorial5.crossover_mapping" class="py-name" href="#" onclick="return doclink('link-21', 'crossover_mapping', 'link-21');">crossover_mapping</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-string">'+'</tt><tt class="py-op">,</tt><tt class="py-string">'adf2_+'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-string">'adf2_+'</tt><tt class="py-op">,</tt><tt class="py-string">'+'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-string">'*'</tt><tt class="py-op">,</tt><tt class="py-string">'adf2_*'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-string">'adf2_*'</tt><tt class="py-op">,</tt><tt class="py-string">'*'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">     </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">     </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-comment"># we create the list of all possible values a variable can have </tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-comment"># Here we tell the system it only learn from one example, so it will </tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-comment"># only evaluate the tree one time. The difference will be that this unique</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-comment"># variable will be an array of 200 of format 'double' ! These 200 variables</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-comment"># will then be evaluated at once when a tree is evaluated. </tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt id="link-22" class="py-name" targets="Variable settings.nb_eval=settings-module.html#nb_eval,Variable tutorial1.nb_eval=tutorial1-module.html#nb_eval,Variable tutorial2.nb_eval=tutorial2-module.html#nb_eval,Variable tutorial3.nb_eval=tutorial3-module.html#nb_eval,Variable tutorial4.nb_eval=tutorial4-module.html#nb_eval,Variable tutorial5.nb_eval=tutorial5-module.html#nb_eval"><a title="settings.nb_eval
+tutorial1.nb_eval
+tutorial2.nb_eval
+tutorial3.nb_eval
+tutorial4.nb_eval
+tutorial5.nb_eval" class="py-name" href="#" onclick="return doclink('link-22', 'nb_eval', 'link-22');">nb_eval</a></tt><tt class="py-op">=</tt><tt class="py-number">1</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt id="link-23" class="py-name" targets="Variable tutorial1.all_x=tutorial1-module.html#all_x,Variable tutorial2.all_x=tutorial2-module.html#all_x,Variable tutorial3.all_x=tutorial3-module.html#all_x,Variable tutorial4.all_x=tutorial4-module.html#all_x,Variable tutorial5.all_x=tutorial5-module.html#all_x"><a title="tutorial1.all_x
+tutorial2.all_x
+tutorial3.all_x
+tutorial4.all_x
+tutorial5.all_x" class="py-name" href="#" onclick="return doclink('link-23', 'all_x', 'link-23');">all_x</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt id="link-24" class="py-name" targets="Variable tutorial2.all_y=tutorial2-module.html#all_y,Variable tutorial3.all_y=tutorial3-module.html#all_y,Variable tutorial4.all_y=tutorial4-module.html#all_y,Variable tutorial5.all_y=tutorial5-module.html#all_y"><a title="tutorial2.all_y
+tutorial3.all_y
+tutorial4.all_y
+tutorial5.all_y" class="py-name" href="#" onclick="return doclink('link-24', 'all_y', 'link-24');">all_y</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt id="link-25" class="py-name" targets="Variable tutorial4.nb_ex=tutorial4-module.html#nb_ex"><a title="tutorial4.nb_ex" class="py-name" href="#" onclick="return doclink('link-25', 'nb_ex', 'link-25');">nb_ex</a></tt><tt class="py-op">=</tt><tt class="py-number">1000</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-keyword">for</tt> <tt id="link-26" class="py-name"><a title="tutorial1.i
+tutorial2.i
+tutorial3.i
+tutorial4.i
+tutorial5.i" class="py-name" href="#" onclick="return doclink('link-26', 'i', 'link-3');">i</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt id="link-27" class="py-name"><a title="tutorial4.nb_ex" class="py-name" href="#" onclick="return doclink('link-27', 'nb_ex', 'link-25');">nb_ex</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">    <tt id="link-28" class="py-name"><a title="tutorial1.all_x
+tutorial2.all_x
+tutorial3.all_x
+tutorial4.all_x
+tutorial5.all_x" class="py-name" href="#" onclick="return doclink('link-28', 'all_x', 'link-23');">all_x</a></tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">random</tt><tt class="py-op">.</tt><tt class="py-name">random</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">*</tt><tt class="py-number">10</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt id="link-29" class="py-name"><a title="tutorial2.all_y
+tutorial3.all_y
+tutorial4.all_y
+tutorial5.all_y" class="py-name" href="#" onclick="return doclink('link-29', 'all_y', 'link-24');">all_y</a></tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">random</tt><tt class="py-op">.</tt><tt class="py-name">random</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">*</tt><tt class="py-number">10</tt><tt class="py-op">)</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-comment">#print all_x</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-comment">#print all_y</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-comment">#print add([all_x,all_y])</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-comment">#print multiply([all_x,all_y])</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-comment"># encapsulate all data of x and y inside arrays so that the tree</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-comment"># will evaluate a whole array in one go...</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt id="link-30" class="py-name" targets="Variable settings.ideal_results=settings-module.html#ideal_results,Variable tutorial1.ideal_results=tutorial1-module.html#ideal_results,Variable tutorial2.ideal_results=tutorial2-module.html#ideal_results,Variable tutorial3.ideal_results=tutorial3-module.html#ideal_results,Variable tutorial4.ideal_results=tutorial4-module.html#ideal_results,Variable tutorial5.ideal_results=tutorial5-module.html#ideal_results"><a title="settings.ideal_results
+tutorial1.ideal_results
+tutorial2.ideal_results
+tutorial3.ideal_results
+tutorial4.ideal_results
+tutorial5.ideal_results" class="py-name" href="#" onclick="return doclink('link-30', 'ideal_results', 'link-30');">ideal_results</a></tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"> </tt>
+<a name="GetIdealResultsData"></a><div id="GetIdealResultsData-def"><a name="L172"></a><tt class="py-lineno">172</tt> <a class="py-toggle" href="#" id="GetIdealResultsData-toggle" onclick="return toggle('GetIdealResultsData');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="tutorial4-module.html#GetIdealResultsData">GetIdealResultsData</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="GetIdealResultsData-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="GetIdealResultsData-expanded"><a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">    <tt class="py-name">temp1</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">nb</tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt id="link-31" class="py-name"><a title="tutorial4.nb_ex" class="py-name" href="#" onclick="return doclink('link-31', 'nb_ex', 'link-25');">nb_ex</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">        <tt class="py-name">temp1</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt id="link-32" class="py-name"><a title="tutorial1.all_x
+tutorial2.all_x
+tutorial3.all_x
+tutorial4.all_x
+tutorial5.all_x" class="py-name" href="#" onclick="return doclink('link-32', 'all_x', 'link-23');">all_x</a></tt><tt class="py-op">[</tt><tt class="py-name">nb</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt id="link-33" class="py-name"><a title="tutorial2.all_y
+tutorial3.all_y
+tutorial4.all_y
+tutorial5.all_y" class="py-name" href="#" onclick="return doclink('link-33', 'all_y', 'link-24');">all_y</a></tt><tt class="py-op">[</tt><tt class="py-name">nb</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">    <tt class="py-name">temp2</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">nb</tt> <tt class="py-keyword">in</tt> <tt class="py-name">xrange</tt><tt class="py-op">(</tt><tt id="link-34" class="py-name"><a title="tutorial4.nb_ex" class="py-name" href="#" onclick="return doclink('link-34', 'nb_ex', 'link-25');">nb_ex</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">        <tt class="py-name">temp2</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-op">(</tt><tt id="link-35" class="py-name"><a title="tutorial1.all_x
+tutorial2.all_x
+tutorial3.all_x
+tutorial4.all_x
+tutorial5.all_x" class="py-name" href="#" onclick="return doclink('link-35', 'all_x', 'link-23');">all_x</a></tt><tt class="py-op">[</tt><tt class="py-name">nb</tt><tt class="py-op">]</tt><tt class="py-op">+</tt><tt id="link-36" class="py-name"><a title="tutorial2.all_y
+tutorial3.all_y
+tutorial4.all_y
+tutorial5.all_y" class="py-name" href="#" onclick="return doclink('link-36', 'all_y', 'link-24');">all_y</a></tt><tt class="py-op">[</tt><tt class="py-name">nb</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">**</tt><tt class="py-number">3</tt><tt class="py-op">)</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">    <tt id="link-37" class="py-name"><a title="settings.ideal_results
+tutorial1.ideal_results
+tutorial2.ideal_results
+tutorial3.ideal_results
+tutorial4.ideal_results
+tutorial5.ideal_results" class="py-name" href="#" onclick="return doclink('link-37', 'ideal_results', 'link-30');">ideal_results</a></tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">temp1</tt><tt class="py-op">)</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">    <tt id="link-38" class="py-name"><a title="settings.ideal_results
+tutorial1.ideal_results
+tutorial2.ideal_results
+tutorial3.ideal_results
+tutorial4.ideal_results
+tutorial5.ideal_results" class="py-name" href="#" onclick="return doclink('link-38', 'ideal_results', 'link-30');">ideal_results</a></tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">temp2</tt><tt class="py-op">)</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-39" class="py-name"><a title="settings.ideal_results
+tutorial1.ideal_results
+tutorial2.ideal_results
+tutorial3.ideal_results
+tutorial4.ideal_results
+tutorial5.ideal_results" class="py-name" href="#" onclick="return doclink('link-39', 'ideal_results', 'link-30');">ideal_results</a></tt> </tt>
+</div><a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">    <tt class="py-comment"># then, we create a mapping of terminals</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">    <tt class="py-comment"># the variables will be given a value coming from a set of examples</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">    <tt class="py-comment"># the constants will just be given as such or produced by a</tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line"><tt class="py-comment"># random producer</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line"><tt id="link-40" class="py-name" targets="Variable settings.terminals=settings-module.html#terminals,Variable tutorial1.terminals=tutorial1-module.html#terminals,Variable tutorial2.terminals=tutorial2-module.html#terminals,Variable tutorial3.terminals=tutorial3-module.html#terminals,Variable tutorial4.terminals=tutorial4-module.html#terminals,Variable tutorial5.terminals=tutorial5-module.html#terminals"><a title="settings.terminals
+tutorial1.terminals
+tutorial2.terminals
+tutorial3.terminals
+tutorial4.terminals
+tutorial5.terminals" class="py-name" href="#" onclick="return doclink('link-40', 'terminals', 'link-40');">terminals</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-string">'x'</tt><tt class="py-op">:</tt><tt id="link-41" class="py-name"><a title="tutorial1.all_x
+tutorial2.all_x
+tutorial3.all_x
+tutorial4.all_x
+tutorial5.all_x" class="py-name" href="#" onclick="return doclink('link-41', 'all_x', 'link-23');">all_x</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-string">'y'</tt><tt class="py-op">:</tt><tt id="link-42" class="py-name"><a title="tutorial2.all_y
+tutorial3.all_y
+tutorial4.all_y
+tutorial5.all_y" class="py-name" href="#" onclick="return doclink('link-42', 'all_y', 'link-24');">all_y</a></tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line"> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"><tt class="py-comment">#MaxDepth=5</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt id="link-43" class="py-name" targets="Variable settings.Strongly_Typed_Crossover_degree=settings-module.html#Strongly_Typed_Crossover_degree,Variable tutorial1.Strongly_Typed_Crossover_degree=tutorial1-module.html#Strongly_Typed_Crossover_degree,Variable tutorial2.Strongly_Typed_Crossover_degree=tutorial2-module.html#Strongly_Typed_Crossover_degree,Variable tutorial3.Strongly_Typed_Crossover_degree=tutorial3-module.html#Strongly_Typed_Crossover_degree,Variable tutorial4.Strongly_Typed_Crossover_degree=tutorial4-module.html#Strongly_Typed_Crossover_degree,Variable tutorial5.Strongly_Typed_Crossover_degree=tutorial5-module.html#Strongly_Typed_Crossover_degree"><a title="settings.Strongly_Typed_Crossover_degree
+tutorial1.Strongly_Typed_Crossover_degree
+tutorial2.Strongly_Typed_Crossover_degree
+tutorial3.Strongly_Typed_Crossover_degree
+tutorial4.Strongly_Typed_Crossover_degree
+tutorial5.Strongly_Typed_Crossover_degree" class="py-name" href="#" onclick="return doclink('link-43', 'Strongly_Typed_Crossover_degree', 'link-43');">Strongly_Typed_Crossover_degree</a></tt><tt class="py-op">=</tt><tt class="py-number">1</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"> </tt>
+<a name="FitnessFunction"></a><div id="FitnessFunction-def"><a name="L194"></a><tt class="py-lineno">194</tt> <a class="py-toggle" href="#" id="FitnessFunction-toggle" onclick="return toggle('FitnessFunction');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="tutorial4-module.html#FitnessFunction">FitnessFunction</a><tt class="py-op">(</tt><tt class="py-param">my_tree</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="FitnessFunction-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="FitnessFunction-expanded"><a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-44" class="py-name"><a title="evalfitness" class="py-name" href="#" onclick="return doclink('link-44', 'evalfitness', 'link-2');">evalfitness</a></tt><tt class="py-op">.</tt><tt id="link-45" class="py-name" targets="Function evalfitness.FinalFitness2()=evalfitness-module.html#FinalFitness2"><a title="evalfitness.FinalFitness2" class="py-name" href="#" onclick="return doclink('link-45', 'FinalFitness2', 'link-45');">FinalFitness2</a></tt><tt class="py-op">(</tt><tt id="link-46" class="py-name"><a title="evalfitness" class="py-name" href="#" onclick="return doclink('link-46', 'evalfitness', 'link-2');">evalfitness</a></tt><tt class="py-op">.</tt><tt id="link-47" class="py-name" targets="Function evalfitness.EvalTreeForOneListInputSet()=evalfitness-module.html#EvalTreeForOneListInputSet"><a title="evalfitness.EvalTreeForOneListInputSet" class="py-name" href="#" onclick="return doclink('link-47', 'EvalTreeForOneListInputSet', 'link-47');">EvalTreeForOneListInputSet</a></tt><tt class="py-op">(</tt><tt class="py-name">my_tree</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"><tt class="py-comment"># default function set applicable by for branches:</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt id="link-48" class="py-name" targets="Variable tutorial1.defaultFunctionSet=tutorial1-module.html#defaultFunctionSet,Variable tutorial2.defaultFunctionSet=tutorial2-module.html#defaultFunctionSet,Variable tutorial3.defaultFunctionSet=tutorial3-module.html#defaultFunctionSet,Variable tutorial4.defaultFunctionSet=tutorial4-module.html#defaultFunctionSet,Variable tutorial5.defaultFunctionSet=tutorial5-module.html#defaultFunctionSet"><a title="tutorial1.defaultFunctionSet
+tutorial2.defaultFunctionSet
+tutorial3.defaultFunctionSet
+tutorial4.defaultFunctionSet
+tutorial5.defaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-48', 'defaultFunctionSet', 'link-48');">defaultFunctionSet</a></tt><tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-string">'+'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-string">'*'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"><tt class="py-comment"># default terminal set applicable by for branches:</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"><tt id="link-49" class="py-name" targets="Variable tutorial1.defaultTerminalSet=tutorial1-module.html#defaultTerminalSet,Variable tutorial2.defaultTerminalSet=tutorial2-module.html#defaultTerminalSet,Variable tutorial3.defaultTerminalSet=tutorial3-module.html#defaultTerminalSet,Variable tutorial4.defaultTerminalSet=tutorial4-module.html#defaultTerminalSet,Variable tutorial5.defaultTerminalSet=tutorial5-module.html#defaultTerminalSet"><a title="tutorial1.defaultTerminalSet
+tutorial2.defaultTerminalSet
+tutorial3.defaultTerminalSet
+tutorial4.defaultTerminalSet
+tutorial5.defaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-49', 'defaultTerminalSet', 'link-49');">defaultTerminalSet</a></tt><tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-string">'x'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-string">'y'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"><tt id="link-50" class="py-name" targets="Variable tutorial3.Adf2DefaultFunctionSet=tutorial3-module.html#Adf2DefaultFunctionSet,Variable tutorial4.Adf2DefaultFunctionSet=tutorial4-module.html#Adf2DefaultFunctionSet"><a title="tutorial3.Adf2DefaultFunctionSet
+tutorial4.Adf2DefaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-50', 'Adf2DefaultFunctionSet', 'link-50');">Adf2DefaultFunctionSet</a></tt><tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-string">'adf2_+'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-string">'adf2_*'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt id="link-51" class="py-name" targets="Variable tutorial3.Adf2DefaultTerminalSet=tutorial3-module.html#Adf2DefaultTerminalSet,Variable tutorial4.Adf2DefaultTerminalSet=tutorial4-module.html#Adf2DefaultTerminalSet"><a title="tutorial3.Adf2DefaultTerminalSet
+tutorial4.Adf2DefaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-51', 'Adf2DefaultTerminalSet', 'link-51');">Adf2DefaultTerminalSet</a></tt><tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-string">'x'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-number">3</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-string">'y'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">,</tt><tt class="py-number">0</tt><tt class="py-op">,</tt><tt class="py-string">'adf1'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"><tt id="link-52" class="py-name" targets="Variable settings.treeRules=settings-module.html#treeRules,Variable tutorial1.treeRules=tutorial1-module.html#treeRules,Variable tutorial2.treeRules=tutorial2-module.html#treeRules,Variable tutorial3.treeRules=tutorial3-module.html#treeRules,Variable tutorial4.treeRules=tutorial4-module.html#treeRules,Variable tutorial5.treeRules=tutorial5-module.html#treeRules"><a title="settings.treeRules
+tutorial1.treeRules
+tutorial2.treeRules
+tutorial3.treeRules
+tutorial4.treeRules
+tutorial5.treeRules" class="py-name" href="#" onclick="return doclink('link-52', 'treeRules', 'link-52');">treeRules</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'root'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt> <tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-string">'adf1'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">,</tt><tt class="py-number">1</tt><tt class="py-op">,</tt><tt class="py-string">'adf2'</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> <tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line">                    <tt class="py-string">'adf1'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-53" class="py-name"><a title="tutorial1.defaultFunctionSet
+tutorial2.defaultFunctionSet
+tutorial3.defaultFunctionSet
+tutorial4.defaultFunctionSet
+tutorial5.defaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-53', 'defaultFunctionSet', 'link-48');">defaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-54" class="py-name"><a title="tutorial1.defaultTerminalSet
+tutorial2.defaultTerminalSet
+tutorial3.defaultTerminalSet
+tutorial4.defaultTerminalSet
+tutorial5.defaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-54', 'defaultTerminalSet', 'link-49');">defaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">                    <tt class="py-string">'adf2'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-55" class="py-name"><a title="tutorial3.Adf2DefaultFunctionSet
+tutorial4.Adf2DefaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-55', 'Adf2DefaultFunctionSet', 'link-50');">Adf2DefaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-56" class="py-name"><a title="tutorial3.Adf2DefaultTerminalSet
+tutorial4.Adf2DefaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-56', 'Adf2DefaultTerminalSet', 'link-51');">Adf2DefaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">                    <tt class="py-string">'+'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-57" class="py-name"><a title="tutorial1.defaultFunctionSet
+tutorial2.defaultFunctionSet
+tutorial3.defaultFunctionSet
+tutorial4.defaultFunctionSet
+tutorial5.defaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-57', 'defaultFunctionSet', 'link-48');">defaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-58" class="py-name"><a title="tutorial1.defaultTerminalSet
+tutorial2.defaultTerminalSet
+tutorial3.defaultTerminalSet
+tutorial4.defaultTerminalSet
+tutorial5.defaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-58', 'defaultTerminalSet', 'link-49');">defaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt id="link-59" class="py-name"><a title="tutorial1.defaultFunctionSet
+tutorial2.defaultFunctionSet
+tutorial3.defaultFunctionSet
+tutorial4.defaultFunctionSet
+tutorial5.defaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-59', 'defaultFunctionSet', 'link-48');">defaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-60" class="py-name"><a title="tutorial1.defaultTerminalSet
+tutorial2.defaultTerminalSet
+tutorial3.defaultTerminalSet
+tutorial4.defaultTerminalSet
+tutorial5.defaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-60', 'defaultTerminalSet', 'link-49');">defaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">                    <tt class="py-string">'*'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-61" class="py-name"><a title="tutorial1.defaultFunctionSet
+tutorial2.defaultFunctionSet
+tutorial3.defaultFunctionSet
+tutorial4.defaultFunctionSet
+tutorial5.defaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-61', 'defaultFunctionSet', 'link-48');">defaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-62" class="py-name"><a title="tutorial1.defaultTerminalSet
+tutorial2.defaultTerminalSet
+tutorial3.defaultTerminalSet
+tutorial4.defaultTerminalSet
+tutorial5.defaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-62', 'defaultTerminalSet', 'link-49');">defaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt id="link-63" class="py-name"><a title="tutorial1.defaultFunctionSet
+tutorial2.defaultFunctionSet
+tutorial3.defaultFunctionSet
+tutorial4.defaultFunctionSet
+tutorial5.defaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-63', 'defaultFunctionSet', 'link-48');">defaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-64" class="py-name"><a title="tutorial1.defaultTerminalSet
+tutorial2.defaultTerminalSet
+tutorial3.defaultTerminalSet
+tutorial4.defaultTerminalSet
+tutorial5.defaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-64', 'defaultTerminalSet', 'link-49');">defaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">                    <tt class="py-string">'adf2_+'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-65" class="py-name"><a title="tutorial3.Adf2DefaultFunctionSet
+tutorial4.Adf2DefaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-65', 'Adf2DefaultFunctionSet', 'link-50');">Adf2DefaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-66" class="py-name"><a title="tutorial3.Adf2DefaultTerminalSet
+tutorial4.Adf2DefaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-66', 'Adf2DefaultTerminalSet', 'link-51');">Adf2DefaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt id="link-67" class="py-name"><a title="tutorial3.Adf2DefaultFunctionSet
+tutorial4.Adf2DefaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-67', 'Adf2DefaultFunctionSet', 'link-50');">Adf2DefaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-68" class="py-name"><a title="tutorial3.Adf2DefaultTerminalSet
+tutorial4.Adf2DefaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-68', 'Adf2DefaultTerminalSet', 'link-51');">Adf2DefaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">                    <tt class="py-string">'adf2_*'</tt><tt class="py-op">:</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-69" class="py-name"><a title="tutorial3.Adf2DefaultFunctionSet
+tutorial4.Adf2DefaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-69', 'Adf2DefaultFunctionSet', 'link-50');">Adf2DefaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-70" class="py-name"><a title="tutorial3.Adf2DefaultTerminalSet
+tutorial4.Adf2DefaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-70', 'Adf2DefaultTerminalSet', 'link-51');">Adf2DefaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">(</tt><tt id="link-71" class="py-name"><a title="tutorial3.Adf2DefaultFunctionSet
+tutorial4.Adf2DefaultFunctionSet" class="py-name" href="#" onclick="return doclink('link-71', 'Adf2DefaultFunctionSet', 'link-50');">Adf2DefaultFunctionSet</a></tt><tt class="py-op">,</tt><tt id="link-72" class="py-name"><a title="tutorial3.Adf2DefaultTerminalSet
+tutorial4.Adf2DefaultTerminalSet" class="py-name" href="#" onclick="return doclink('link-72', 'Adf2DefaultTerminalSet', 'link-51');">Adf2DefaultTerminalSet</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">                    <tt class="py-op">}</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"><tt id="link-73" class="py-name"><a title="settings.Strongly_Typed_Crossover_degree
+tutorial1.Strongly_Typed_Crossover_degree
+tutorial2.Strongly_Typed_Crossover_degree
+tutorial3.Strongly_Typed_Crossover_degree
+tutorial4.Strongly_Typed_Crossover_degree
+tutorial5.Strongly_Typed_Crossover_degree" class="py-name" href="#" onclick="return doclink('link-73', 'Strongly_Typed_Crossover_degree', 'link-43');">Strongly_Typed_Crossover_degree</a></tt><tt class="py-op">=</tt><tt class="py-number">1</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line"><tt id="link-74" class="py-name" targets="Variable settings.Substitute_Mutation=settings-module.html#Substitute_Mutation,Variable tutorial1.Substitute_Mutation=tutorial1-module.html#Substitute_Mutation,Variable tutorial2.Substitute_Mutation=tutorial2-module.html#Substitute_Mutation,Variable tutorial3.Substitute_Mutation=tutorial3-module.html#Substitute_Mutation,Variable tutorial4.Substitute_Mutation=tutorial4-module.html#Substitute_Mutation,Variable tutorial5.Substitute_Mutation=tutorial5-module.html#Substitute_Mutation"><a title="settings.Substitute_Mutation
+tutorial1.Substitute_Mutation
+tutorial2.Substitute_Mutation
+tutorial3.Substitute_Mutation
+tutorial4.Substitute_Mutation
+tutorial5.Substitute_Mutation" class="py-name" href="#" onclick="return doclink('link-74', 'Substitute_Mutation', 'link-74');">Substitute_Mutation</a></tt><tt class="py-op">=</tt><tt class="py-number">0</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"><tt id="link-75" class="py-name" targets="Variable settings.adfOrdered=settings-module.html#adfOrdered,Variable tutorial1.adfOrdered=tutorial1-module.html#adfOrdered,Variable tutorial2.adfOrdered=tutorial2-module.html#adfOrdered,Variable tutorial3.adfOrdered=tutorial3-module.html#adfOrdered,Variable tutorial4.adfOrdered=tutorial4-module.html#adfOrdered,Variable tutorial5.adfOrdered=tutorial5-module.html#adfOrdered"><a title="settings.adfOrdered
+tutorial1.adfOrdered
+tutorial2.adfOrdered
+tutorial3.adfOrdered
+tutorial4.adfOrdered
+tutorial5.adfOrdered" class="py-name" href="#" onclick="return doclink('link-75', 'adfOrdered', 'link-75');">adfOrdered</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pySTEP_1.20</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 15 11:36:18 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
