@@ -5,8 +5,8 @@ class Predictor():
 
     def __init__(self):
         self.data = Data()
-        self.data.unpickle()
-        
+        self.data.unpickle()                
+
     # returns the sum of goals of the last 5 years
     def resAb(self, team1, team2):
         t1_sum = 0
@@ -33,7 +33,7 @@ class Predictor():
                 # if no data for that year is available
                 pass
             
-        return t1_sum, t2_sum, count
+        return [t1_sum, t2_sum, count]
       
     # returns the game history of the given teams
     # team1 (home team) is always named FIRST

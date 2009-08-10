@@ -5,22 +5,27 @@
 # predicts soccer scores
 
 import sys
+import random
 import cPickle as pickle
 # own classes
 from data import *
 from predictor import *
 
-DEBUG = 0
+DEBUG = 1
 
 class Main():
    def __init__(self):
       self.pred = Predictor()
       self.data = Data()
+      random.seed()
       # def vars
       self.home_game_bonus = 1.10
-      self.home_game_won_bonus = 1.15
+      self.home_game_won_bonus = 1.10
+      self.home_game_threshold = 2
       self.last_year = '2008'
-      self.last_year_bonus = 1.25
+      self.last_year_bonus = 1.15
+      self.not_played_bonus = 1.05
+      self.rank_bonus = 1.10
 
    # returns the sum of goals of all the matches in the database
    # between the two given teams
@@ -49,15 +54,41 @@ class Main():
 
 
 
-
    # classic plus, gives bonus to the 'good' teams and
    # ranks the last season higher than the seasons before
    def classic_plus(self, team):
+
       teams = [int(team[0]), int(team[1])]
-      if DEBUG: print '------'
+      if DEBUG: print '\33[1;30m------\033[1;m'
       if DEBUG: print str(self.data.get_team_name(teams[0])) + ' vs. ' + str(self.data.get_team_name(teams[1]))
 
+      # get sum of all goals in all games
+      ###################################
       goal_sum = list(self.pred.resAb(teams[0], teams[1]))
+
+      # if teams never ever played against each other
+      if goal_sum[2] == 0:
+         if DEBUG: print 'random score because teams never ever played'
+
+         rank_t1 = self.data.get_rank(teams[0])
+         rank_t2 = self.data.get_rank(teams[1])
+
+         if rank_t1 < rank_t2:
+            # team 1 wins random score
+            rand_list = [[2,1], [1,0], [1,1]] * 2
+            goal_sum = random.sample(rand_list, 2)
+            goal_sum.append(len(goal_sum))
+         elif rank_t2 < rank_t1:
+            # team2 wins random score
+            rand_list = [[1,2], [0,1], [1,1]] * 2
+            goal_sum = random.sample(rand_list, 2)
+            goal_sum.append(len(goal_sum))
+         else:
+            # complete random if same rank
+            rand_list = [[1,0], [0,1], [0,0], [2,1], [1,2]] * 2
+            goal_sum = random.sample(rand_list, 2)
+            goal_sum.append(len(goal_sum))
+
       if DEBUG: print 'goal_sum: ' + str(goal_sum)
 
       # home game bonus
@@ -71,21 +102,20 @@ class Main():
       for g in games:
          if g[0] > g[1]:
             home_vics+=1
-      if home_vics > 2:
+      if home_vics > self.home_game_threshold:
          goal_sum[0] *= self.home_game_won_bonus
-         if DEBUG: print '+ home_game_won_bonus: ' + str(goal_sum)
+         if DEBUG: print '\033[1;32m+ home_game_won_bonus: \033[1;m' + str(goal_sum)
 
       # give home games bonus
       goal_sum[0] *= self.home_game_bonus
 
-      
+
       # last year bonus
       #################
       # check which team won last season, give it bonus
       last_year_score = self.pred.get_game_scores(teams[0], teams[1], self.last_year)
       if last_year_score != []: # have they played each other?
-         lys_sum = 0
-         
+
          # give bonus to the better team of the last season
          s1 = last_year_score[0][0] + last_year_score[1][0]
          s2 = last_year_score[0][1] + last_year_score[1][1]
@@ -93,13 +123,19 @@ class Main():
             goal_sum[0] *= self.last_year_bonus
          else:
             goal_sum[1] *= self.last_year_bonus
-            
-         if DEBUG: print '+ last_year_bonus: ' + str(goal_sum)
 
-      else: # they haven't played?
-         # TODO:
+         if DEBUG: print '\033[1;32m+ last_year_bonus: \033[1;m' + str(goal_sum)
+
+      else: # they haven't played last year?
          # bonus to higher team
-         pass
+         r1 = self.data.get_rank(teams[0])
+         r2 = self.data.get_rank(teams[1])
+         if r1 < r2:
+            goal_sum[0] *= self.not_played_bonus
+            if DEBUG: print '\033[1;32m+ not_played_bonus: \033[1;m' + str(goal_sum)
+         elif r2 < r1:
+            goal_sum[1] *= self.not_played_bonus
+            if DEBUG: print '\033[1;32m+ not_played_bonus: \033[1;m' + str(goal_sum)
 
 
       # common bonus to better team (thirds)
@@ -107,35 +143,42 @@ class Main():
       # TODO:
       # if the teams are in a different third of the 'ewige tabelle',
       # give the better team a bonus
-      
-      
+      rank_team1 = self.data.get_rank(teams[0])
+      rank_team2 = self.data.get_rank(teams[1])
+
+      if rank_team1 < rank_team2:
+         goal_sum[0] *= self.rank_bonus
+         if DEBUG: print '\033[1;32m+ rank bonus \033[1;m' + self.data.get_team_name(teams[0]) + ': '  + str(goal_sum)
+      elif rank_team2 < rank_team1:
+         goal_sum[1] *= self.rank_bonus
+         if DEBUG: print '\033[1;32m+ rank bonus \033[1;m' + self.data.get_team_name(teams[0]) + ': '  + str(goal_sum)
+
 
       # calculate diff and goal mean
       ##############################
       goal_diff = goal_sum[0] - goal_sum[1]
       # if teams played each other:
       if goal_sum[2] != 0:
-         goal_mean = goal_sum[0]/goal_sum[2], goal_sum[1]/goal_sum[2]
-      else:
-         # TODO:
-         # wenn team noch nie gegeneinander gespielt, dann gewinnt das bessere team
-         # aus der ewigen tabelle, bzw. wenn im gleichen drittel, dann 50/50 entscheidung
-         # ob unentschieden oder 1:0/2:1
-         goal_mean = (0,0)
+         goal_mean = [goal_sum[0]/goal_sum[2], goal_sum[1]/goal_sum[2]]
 
+
+      # output and debug
+      ##################
       if goal_diff > 0:
          if DEBUG: print str(teams[0]) + ' better. ' + 'diff: ' + str(goal_diff)
-         if DEBUG: print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
          print str(teams[0]) + ' ' + str(teams[1]) + ' ' \
              + str(int(goal_mean[0])) + ' ' + str(int(goal_mean[1]))
+
       elif goal_diff == 0:
          if DEBUG: print 'draw. ' + 'diff: ' + str(goal_diff)
-         if DEBUG: print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
          print str(teams[0]) + ' ' + str(teams[1]) + ' ' \
              + str(int(goal_mean[0])) + ' ' + str(int(goal_mean[1]))
+
       else:
          if DEBUG: print str(teams[1]) + ' better. ' + 'diff: ' + str(goal_diff)
-         if DEBUG: print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
          print str(teams[0]) + ' ' + str(teams[1]) + ' ' \
              + str(int(goal_mean[0])) + ' ' + str(int(goal_mean[1]))
 
@@ -155,7 +198,7 @@ class Main():
       for i in input:
          match = i.replace('\n', '').split(' ')
 
-         # classic mehtod, plain and stupid
+         # classic method, plain and stupid
          #self.classic(match)
 
          # classic plus bonus method
@@ -163,6 +206,7 @@ class Main():
 
          # genetic programming method
          # self.genetic(match)
+
 
 if __name__ == '__main__':
    main = Main()
