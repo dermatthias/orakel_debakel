@@ -8,7 +8,7 @@ class Predictor():
         self.data.unpickle()                
 
     # returns the sum of goals of the last 5 years
-    def resAb(self, team1, team2):
+    def get_goal_sum(self, team1, team2):
         t1_sum = 0
         t2_sum = 0
         # number of games
