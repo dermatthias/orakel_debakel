@@ -11,13 +11,15 @@ import cPickle as pickle
 from data import *
 from predictor import *
 
-DEBUG = 1
+DEBUG = 0
 
 class Main():
    def __init__(self):
+      # init 
       self.pred = Predictor()
       self.data = Data()
       random.seed()
+      
       # def vars
       self.home_game_bonus = 1.10
       self.home_game_won_bonus = 1.10
@@ -31,7 +33,7 @@ class Main():
    # between the two given teams
    def classic(self, team):
       # get scores
-      goal_sum = self.pred.resAb(int(team[0]), int(team[1]))
+      goal_sum = self.pred.get_goal_sum(int(team[0]), int(team[1]))
       goal_diff = goal_sum[0] - goal_sum[1]
       if goal_sum[2] != 0:
          goal_mean = goal_sum[0]/goal_sum[2], goal_sum[1]/goal_sum[2]
@@ -64,7 +66,7 @@ class Main():
 
       # get sum of all goals in all games
       ###################################
-      goal_sum = list(self.pred.resAb(teams[0], teams[1]))
+      goal_sum = list(self.pred.get_goal_sum(teams[0], teams[1]))
 
       # if teams never ever played against each other
       if goal_sum[2] == 0:
@@ -148,10 +150,12 @@ class Main():
 
       if rank_team1 < rank_team2:
          goal_sum[0] *= self.rank_bonus
-         if DEBUG: print '\033[1;32m+ rank bonus \033[1;m' + self.data.get_team_name(teams[0]) + ': '  + str(goal_sum)
+         if DEBUG: print '\033[1;32m+ rank bonus \033[1;m' + \
+                self.data.get_team_name(teams[0]) + ': '  + str(goal_sum)
       elif rank_team2 < rank_team1:
          goal_sum[1] *= self.rank_bonus
-         if DEBUG: print '\033[1;32m+ rank bonus \033[1;m' + self.data.get_team_name(teams[0]) + ': '  + str(goal_sum)
+         if DEBUG: print '\033[1;32m+ rank bonus \033[1;m' + \
+                self.data.get_team_name(teams[0]) + ': '  + str(goal_sum)
 
 
       # calculate diff and goal mean
@@ -166,19 +170,22 @@ class Main():
       ##################
       if goal_diff > 0:
          if DEBUG: print str(teams[0]) + ' better. ' + 'diff: ' + str(goal_diff)
-         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + \
+                str(goal_mean[1])
          print str(teams[0]) + ' ' + str(teams[1]) + ' ' \
              + str(int(goal_mean[0])) + ' ' + str(int(goal_mean[1]))
 
       elif goal_diff == 0:
          if DEBUG: print 'draw. ' + 'diff: ' + str(goal_diff)
-         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + \
+                str(goal_mean[1])
          print str(teams[0]) + ' ' + str(teams[1]) + ' ' \
              + str(int(goal_mean[0])) + ' ' + str(int(goal_mean[1]))
 
       else:
          if DEBUG: print str(teams[1]) + ' better. ' + 'diff: ' + str(goal_diff)
-         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print '\033[1;31mprediction: \033[1;m ' + str(goal_mean[0]) + ':' + \
+                str(goal_mean[1])
          print str(teams[0]) + ' ' + str(teams[1]) + ' ' \
              + str(int(goal_mean[0])) + ' ' + str(int(goal_mean[1]))
 
@@ -189,24 +196,51 @@ class Main():
       pass
 
 
+   # add new scores and recalculate the stats
+   def add_and_do_magic(self, team):
+      # convert to ints
+      teams = [int(team[0]), int(team[1]), int(team[2]), int(team[3])]
+      # insert into database of 2009
+      self.data.kreuz2009[teams[0]][teams[1]] = (teams[2], teams[3])
+      # pickle 2009 database
+      
 
    def main(self):
       # read input
-      input = sys.stdin.readlines()
+      input = sys.stdin.readlines()      
+      
+      # sys args
+      if len(sys.argv) != 3:
+         print 'arguments wrong. major fuck up detected! called stop(). hammertime!'
+         exit(1)
+      else:
+         mode = sys.argv[1]
+         gameday = sys.argv[2]
 
-      # calculate every match
-      for i in input:
-         match = i.replace('\n', '').split(' ')
+      if mode == '--predict':         
+         # calculate every match
+         for i in input:
+            match = i.replace('\n', '').split(' ')
 
-         # classic method, plain and stupid
-         #self.classic(match)
+            # classic method, plain and stupid
+            #self.classic(match)
 
-         # classic plus bonus method
-         self.classic_plus(match)
+            # classic plus bonus method
+            self.classic_plus(match)
 
-         # genetic programming method
-         # self.genetic(match)
+            # genetic programming method
+            # self.genetic(match)
 
+      elif mode == '--verify':
+         for i in input:
+            match = i.replace('\n', '').split(' ')
+               
+            # add live scores to the database and recalculate
+            self.add_and_do_magic(match)
+
+      else: 
+         print 'ERROR: arguments not recognized.\ndefault method called: solving the answer to the life, the universe and everything. come back in 7.5 million years. and thanks for all the fish!'
+         
 
 if __name__ == '__main__':
    main = Main()
