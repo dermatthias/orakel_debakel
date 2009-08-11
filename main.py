@@ -18,6 +18,8 @@ class Main():
       # init 
       self.pred = Predictor()
       self.data = Data()
+      self.data.unpickle()
+
       random.seed()
       
       # def vars
@@ -142,7 +144,6 @@ class Main():
 
       # common bonus to better team (thirds)
       ######################################
-      # TODO:
       # if the teams are in a different third of the 'ewige tabelle',
       # give the better team a bonus
       rank_team1 = self.data.get_rank(teams[0])
@@ -203,6 +204,11 @@ class Main():
       # insert into database of 2009
       self.data.kreuz2009[teams[0]][teams[1]] = (teams[2], teams[3])
       # pickle 2009 database
+      self.data.save_data()
+
+      # TODO
+      # hier nun auf die aktuellen stärken der teams eingegen 
+      
       
 
    def main(self):
