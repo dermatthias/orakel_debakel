@@ -28,6 +28,9 @@ class Data():
       # order of score from view of the team (0:1 is lost, no matter where played)
       self.recent_games = {65: [],123: [],83: [],6: [],87: [],7: [],91: [],93: [],40: [],9: [],100: [],55: [],54: [],105: [],16: [],129: [],131: [],134: [],79: [],102: [],107: [],81: [],23: [],76: [],112: []}
 
+      # ladder of current season
+      self.ladder = {65: 0,123: 0,83: 0,6: 0,87: 0,7: 0,91: 0,93: 0,40: 0,9: 0,100: 0,55: 0,54: 0,105: 0,16: 0,129: 0,131: 0,134: 0,79: 0,102: 0,107: 0,81: 0,23: 0,76: 0,112: 0}
+
    # load the history pickle files
    def unpickle(self):
       kreuz2009_f = open('kreuz2009.pkl', 'rb')
@@ -50,6 +53,10 @@ class Data():
       recent_f = open('recent_games.pkl', 'rb')
       self.recent_games = pickle.load(recent_f)
 
+      # load ladder
+      ladder_f = open('ladder.pkl', 'rb')
+      self.ladder = pickle.load(ladder_f)
+
 
 
    # save current season data
@@ -62,6 +69,10 @@ class Data():
       recent_f = open('recent_games.pkl', 'wb')
       pickle.dump(self.recent_games, recent_f)
 
+   # save ladder
+   def save_ladder(self):
+      ladder_f = open('ladder.pkl', 'wb')
+      pickle.dump(self.ladder, ladder_f)
        
       
    

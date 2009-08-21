@@ -5,7 +5,7 @@ class Predictor():
 
     def __init__(self):
         self.data = Data()
-        self.data.unpickle()                
+        self.data.unpickle()
 
     # returns the sum of goals of the last 5 years
     def get_goal_sum(self, team1, team2):
@@ -19,27 +19,27 @@ class Predictor():
             t2_res_home = 0
             t2_res_away = 0
             # team1
-            try:                
+            try:
                 t1_res_home += v[team1][team2][0]
                 t1_res_away += v[team2][team1][1]
                 # team2
                 t2_res_away += v[team1][team2][1]
                 t2_res_home += v[team2][team1][0]
-             
+
                 t1_sum += t1_res_home + t1_res_away
                 t2_sum += t2_res_home + t2_res_away
                 count+=2
             except:
                 # if no data for that year is available
                 pass
-            
+
         return [t1_sum, t2_sum, count]
-      
+
     # returns the game history of the given teams
     # team1 (home team) is always named FIRST
     def get_history(self, team1, team2):
         history = []
-        for v in self.data.kreuz.itervalues():            
+        for v in self.data.kreuz.itervalues():
             try:
                 history.append(v[team1][team2])
                 vt = v[team2][team1]
@@ -48,7 +48,7 @@ class Predictor():
                 pass
 
         return history
-    
+
     # returns the scores of the given teams in the given year
     def get_game_scores(self, team1, team2, year):
         try:
@@ -61,14 +61,14 @@ class Predictor():
 
         return [game1, game2]
 
-          
+
     # returns the rank (1,2 or 3) of the given team
     def get_rank(self, team):
         for k,v in self.data.rank_groups.iteritems():
             if team in v:
                 return k
 
-   
+
     # returns the real team name as a string
     def get_team_name(self, team):
         return self.data.names[team]
@@ -94,10 +94,36 @@ class Predictor():
         for i in games:
             if i[0] > i[1]:
                 count+=1
-        
+
         if count == games_played:
             return 1
         else:
             return 0
-                
+
+    # generates the ladder of the current gameday as a list
+    def generate_ladder_list(self):
+        ladder_list = []
+        for team,score in self.data.ladder.iteritems():
+            ladder_list.append([score, team])
+            
+        return sorted(ladder_list, reverse=1)
+    
+    
+    # returns the group of a team in the current ladder
+    def get_ladder_group(self, team, ladder):
+        count = 1
+        rank = 1
+        for t in ladder:
+            if t[1] == team:
+                rank = count
+            else:
+                count+=1                
+
+        if rank in range(0,6):
+            return 1
+        elif rank in range(6,12):
+            return 2
+        else:
+            return 3
+
 

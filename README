@@ -1,0 +1,55 @@
+Orakel Debakel
+------------------------------------------------------------
+by Matthias Schneider
+www.beached.org
+
+get code at:
+http://github.com/flurp/orakel_debakel/
+
+This is a occer score predictor for socon competition (soccer contest)
+see http://www.morger.de/socon
+
+Description:
+------------
+Predicts the soccer scores for the german Bundesliga. Input is a
+listing of the the upcoming games, output is a listing of the
+predicted scores. 
+
+Usage: 
+------
+Prediction:
+./main.py --predict <gameday> < input_of_gameday
+
+Verify and enter last gameday:
+./main.py --verify <gameday> < results_of_last_gameday
+
+For input/output specification see socon webpage.
+
+
+Teams are hardcoded by IDs:
+65 1. FC Köln 
+123 1899 Hoffenheim 
+83 Arminia Bielefeld
+6 Bayer Leverkusen
+87 Bor. Mönchengladbach
+7 Borussia Dortmund
+91 Eintracht Frankfurt
+93 Energie Cottbus
+40 FC Bayern München
+9 FC Schalke 04
+100 Hamburger SV
+55 Hannover 96
+54 Hertha BSC
+105 Karlsruher SC
+16 VfB Stuttgart
+129 VfL Bochum
+131 VfL Wolfsburg
+134 Werder Bremen
+79 1. FC Nürnberg
+102 Hansa Rostock
+107 MSV Duisburg
+81 1. FSV Mainz 05
+23 Alemannia Aachen
+76 1. FC Kaiserslautern
+112 SC Freiburg
+

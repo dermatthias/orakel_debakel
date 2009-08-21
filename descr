@@ -1,0 +1,40 @@
+Orakel Debakel
+Matthias Schneider
+Die Mannschafte einer Partie werden über einen sogenannten Score
+bewerten.
+Grundlage des Scores für jede Mannschaft einer Partie sind die
+geschossenen Tore der letzten 5 Jahre in eben dieser Paarung. Wenn
+diese zwei Teams noch nie gegeneinander gespielt haben, wird gewürfelt
+mit Rücksicht auf den Rang (besserer Rang = höhere Wahrscheinlichkeit
+zu gewinnen, Rang siehe unten). 
+
+Der Score jedes Teams wird danach durch verschiedene Boni aufgewertet:
+
+1) home game won bonus: Wenn ein Team oft (verglichen mit einer festen
+Schwelle) zuhause gewonnen hat.
+
+2) home game bonus: Die Heimmannschaft bekommt immer einen (kleinen)
+Bonus.
+
+3) last year bonus: Das Team, das in den Begegnungen der letzten
+Saison besser war, bekommt einen Bonus. Falls sie letztes Jahr nicht
+gegeneinander gespielt haben, gewinnt das höher gerankte Team (siehe
+unten)
+
+4) rank bonus: Alle Teams werden über eine gedrittelten Tabelle
+bewertet. Bsp: Team A aus dem oberen Drittel spielt gegen Team B aus
+dem unteren Drittel, -> Team A bekommt Bonus. 
+Diese "ewige" Tabelle wurde aus den Spielen der letzten 5 Jahre und
+dem "Fachwissen" des Autors berechnet.
+
+5) this season bonus: Wenn ein Team die letzten x Spiele in Folge
+gewonnen hat, bekommt es einen Bonus
+
+Die jeweiligen Boni sind ein- bis zweistellige Prozentwerte, um die
+der Score jeweils angehoben wird. 
+
+Die vorhergesagten Tore beider Mannschaften und damit das Ergebnis ist
+der abgerundete Quotient des Scores und der Anzahl der
+gespielten Spiele der letzten Jahre. 
+Bsp: Score 12.5 / 10 Spiele = 2.5
+Tore, macht abgerundet 2 Tore in diesem Spiel. 

@@ -34,6 +34,7 @@ class Main():
       self.rank_bonus = 1.10
       self.n_recent_games = 3;
       self.recent_games_bonus = 1.10
+      self.current_ladder_bonus = 1.10
 
    # returns the sum of goals of all the matches in the database
    # between the two given teams
@@ -116,7 +117,7 @@ class Main():
 
       # give home games bonus
       goal_sum[0] *= self.home_game_bonus
-      if DEBUG: print '\033[1;32m+ home_game__bonus: \033[1;m' + str(goal_sum)
+      if DEBUG: print '\033[1;32m+ home_game_bonus: \033[1;m' + str(goal_sum)
 
 
       # last year bonus
@@ -166,7 +167,6 @@ class Main():
 
       # this season bonus
       ###################
-      # TODO
       # when x games won in series, give bonus
       rg_t0 = self.pred.get_recent_games(teams[0], self.n_recent_games)
       rg_t1 = self.pred.get_recent_games(teams[1], self.n_recent_games)
@@ -185,7 +185,22 @@ class Main():
 
          
       # give bonus to team which is ranked higher in current season
-      # TODO
+      ladder = self.pred.generate_ladder_list()
+      group_t1 = self.pred.get_ladder_group(teams[0], ladder)
+      group_t2 = self.pred.get_ladder_group(teams[1], ladder)
+
+      out_ladder = 0
+      if group_t1 < group_t2:
+         goal_sum[0] *= self.current_ladder_bonus
+         out_ladder = 1
+      elif group_t2 < group_t1:
+         goal_sum[1] *= self.current_ladder_bonus
+         out_ladder = 1
+
+      if DEBUG: 
+         if out_ladder:
+            print '\033[1;32m+ current_ladder_bonus (' + \
+             str(group_t1) + '~' + str(group_t2) + '): \033[1;m' + str(goal_sum)
 
 
       # calculate diff and goal mean
@@ -237,14 +252,24 @@ class Main():
             self.data.recent_games[teams[0]].insert(0, [teams[2], teams[3]])
             self.data.recent_games[teams[1]].insert(0, [teams[3], teams[2]])
             self.data.save_recent()
+
+            # update ladder
+            if teams[2] > teams[3]:
+               self.data.ladder[teams[0]] += 3
+            elif teams[3] > teams[2]:
+               self.data.ladder[teams[1]] += 3
+            else:
+               self.data.ladder[teams[0]] += 1
+               self.data.ladder[teams[1]] += 1
+            self.data.save_ladder()
+
          else:
             if DEBUG: print 'gameday ' + str(gameday) + ' schon eingetragen'
+
       except KeyError as detail:
          print detail
          print 'KeyError in add_and_do_magic'
-
-
-
+      
 
 
    def main(self):
