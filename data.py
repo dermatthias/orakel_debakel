@@ -57,7 +57,7 @@ class Data():
       self.kreuz = {'2004': self.kreuz2004, '2005': self.kreuz2005, '2006': self.kreuz2006, '2007': self.kreuz2007, '2008': self.kreuz2008, '2009': self.kreuz2009}
 
       # load recent games
-      recent_f = open('recent_games.pkl', 'wb')
+      recent_f = open('recent_games.pkl', 'rb')
       try:
          self.recent_games = pickle.load(recent_f)
       except IOError:
@@ -65,7 +65,7 @@ class Data():
       recent_f.close()
       
       # load ladder
-      ladder_f = open('ladder.pkl', 'wb')
+      ladder_f = open('ladder.pkl', 'rb')
       try:
          self.ladder = pickle.load(ladder_f)
       except IOError:

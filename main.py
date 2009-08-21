@@ -293,9 +293,6 @@ class Main():
          for i in input:
             match = i.replace('\n', '').split(' ')
 
-            # classic method, plain and stupid
-            #self.classic(match)
-
             # classic plus bonus method
             self.classic_plus(match)
 
