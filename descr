@@ -30,6 +30,8 @@ dem "Fachwissen" des Autors berechnet.
 5) this season bonus: Wenn ein Team die letzten x Spiele in Folge
 gewonnen hat, bekommt es einen Bonus
 
+6) current ladder bonus: Das Team, das in der momentanen Tabelle im besseren Drittel steht, bekommt einen Bonus. Gleiches Drittel: Kein Bonus.
+
 Die jeweiligen Boni sind ein- bis zweistellige Prozentwerte, um die
 der Score jeweils angehoben wird. 
 
