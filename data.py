@@ -22,6 +22,11 @@ class Data():
        
       # all teams divided in 3 groups by myself
       self.rank_groups = {1: [40,131,16,134,100,9,7,123], 2: [54,6,91,55,87,129,79,83], 3: [93,81,65,112,105,76,23,102,107]}
+      
+      # recent games of each team
+      # order is important here! first entry in list is most recent game.
+      # order of score from view of the team (0:1 is lost, no matter where played)
+      self.recent_games = {65: [],123: [],83: [],6: [],87: [],7: [],91: [],93: [],40: [],9: [],100: [],55: [],54: [],105: [],16: [],129: [],131: [],134: [],79: [],102: [],107: [],81: [],23: [],76: [],112: []}
 
    # load the history pickle files
    def unpickle(self):
@@ -39,7 +44,12 @@ class Data():
       self.kreuz2004 = pickle.load(kreuz2004_f)
       
       # dictionary with all history years
-      self.kreuz = {'2004': self.kreuz2004, '2005': self.kreuz2005, '2006': self.kreuz2006, '2007': self.kreuz2007, '2008': self.kreuz2008}
+      self.kreuz = {'2004': self.kreuz2004, '2005': self.kreuz2005, '2006': self.kreuz2006, '2007': self.kreuz2007, '2008': self.kreuz2008, '2009': self.kreuz2009}
+
+      # load recent games
+      recent_f = open('recent_games.pkl', 'rb')
+      self.recent_games = pickle.load(recent_f)
+
 
 
    # save current season data
@@ -47,16 +57,13 @@ class Data():
       kreuz2009_f = open('kreuz2009.pkl', 'wb')
       pickle.dump(self.kreuz2009, kreuz2009_f)
 
-       
-   # returns the real team name as a string
-   def get_team_name(self, team):
-      return self.names[team]
+   # save recent games
+   def save_recent(self):
+      recent_f = open('recent_games.pkl', 'wb')
+      pickle.dump(self.recent_games, recent_f)
 
+       
+      
    
-   # returns the rank (1,2 or 3) of the given team
-   def get_rank(self, team):
-      for k,v in self.rank_groups.iteritems():
-         if team in v:
-            return k
                
        

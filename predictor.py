@@ -48,13 +48,56 @@ class Predictor():
                 pass
 
         return history
-
+    
+    # returns the scores of the given teams in the given year
     def get_game_scores(self, team1, team2, year):
         try:
             game1 = self.data.kreuz[year][team1][team2]
             game2 = self.data.kreuz[year][team2][team1]
+            game2 = list(game2)
+            game2.reverse()
         except KeyError:
             return []
 
         return [game1, game2]
+
           
+    # returns the rank (1,2 or 3) of the given team
+    def get_rank(self, team):
+        for k,v in self.data.rank_groups.iteritems():
+            if team in v:
+                return k
+
+   
+    # returns the real team name as a string
+    def get_team_name(self, team):
+        return self.data.names[team]
+
+    # return recent games if team
+    def get_recent_games(self, team, number):
+        # check if less than 'number' games are played
+        games_played = len(self.data.recent_games[team])
+        if games_played < number:
+            number = games_played
+
+        temp_list = []
+        for i in range(0, number):
+            temp_list.append(self.data.recent_games[team][i])
+
+        return temp_list
+
+    # checks the recent games and returns 1 if all won, else 0
+    def winning_streak(self, team, games):
+        games_played = len(games)
+
+        count = 0
+        for i in games:
+            if i[0] > i[1]:
+                count+=1
+        
+        if count == games_played:
+            return 1
+        else:
+            return 0
+                
+
