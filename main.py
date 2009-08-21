@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # orakel debakel
-# for socon by matthias
+# for socon by matthias schneider
 # predicts soccer scores
 
 import sys
@@ -266,10 +266,9 @@ class Main():
          else:
             if DEBUG: print 'gameday ' + str(gameday) + ' schon eingetragen'
 
-      except KeyError as detail:
-         print detail
+      except KeyError:
          print 'KeyError in add_and_do_magic'
-      
+
 
 
    def main(self):

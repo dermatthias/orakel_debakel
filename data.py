@@ -7,7 +7,7 @@ class Data():
       # team names
       self.names = {65: '1. FC Köln',123: '1899 Hoffenheim',83: 'Arminia Bielefeld',6: 'Bayer Leverkusen',87: 'Bor. Mönchengladbach',7: 'Bor. Dortmund',91: 'Eintracht Frankfurt',93: 'Energie Cottbus',40: 'FC Bayern München',9: 'FC Schalke 04',100: 'Hamburger SV',55: 'Hannover 96',54: 'Hertha BSC',105: 'Karlsruher SC',16: 'VfB Stuttgart',129: 'VfL Bochum',131: 'VfL Wolfsburg',134: 'Werder Bremen',79: '1. FC Nürnberg',102: 'Hansa Rostock',107: 'MSV Duisburg',81: '1. FSV Mainz 05',23: 'Alemannia Aachen',76: '1. FC Kaiserslautern',112: 'SC Freiburg',}
       
-      # kreuztabellen bis 2004
+      # kreuztabellen until 2004
       #self.kreuz2009 = {65: {},123: {},83: {},6: {},87: {},7: {},91: {},93: {},40: {},9: {},100: {},55: {},54: {},105: {},16: {},129: {},131: {},134: {},79: {},102: {},107: {},81: {},23: {},76: {},112: {}}
       self.kreuz2009 = {}
       self.kreuz2008 = {}
@@ -17,7 +17,7 @@ class Data():
       self.kreuz2004 = {}
       self.kreuz = {}
 
-       # plus 30 je jahr nicht in 1. bl
+       # plus 30 points for every year not in 1. bundesliga
       self.eternal_ladder = {65: 159, 123: 175, 83: 181, 6: 260, 87: 165, 7: 244, 91: 185, 93: 167, 40: 355, 9: 306 ,100: 279, 55: 216, 54: 257, 105: 162, 16: 287, 129: 183, 131: 242, 134: 306, 79: 191, 102: 150, 107: 146, 81: 175, 23: 154, 76: 165, 112: 138}
        
       # all teams divided in 3 groups by myself
@@ -28,52 +28,68 @@ class Data():
       # order of score from view of the team (0:1 is lost, no matter where played)
       self.recent_games = {65: [],123: [],83: [],6: [],87: [],7: [],91: [],93: [],40: [],9: [],100: [],55: [],54: [],105: [],16: [],129: [],131: [],134: [],79: [],102: [],107: [],81: [],23: [],76: [],112: []}
 
-      # ladder of current season
+      # ladder of current season (inital values)
+      # gets overloaded by pickle
       self.ladder = {65: 0,123: 0,83: 0,6: 0,87: 0,7: 0,91: 0,93: 0,40: 0,9: 0,100: 0,55: 0,54: 0,105: 0,16: 0,129: 0,131: 0,134: 0,79: 0,102: 0,107: 0,81: 0,23: 0,76: 0,112: 0}
 
    # load the history pickle files
    def unpickle(self):
       kreuz2009_f = open('kreuz2009.pkl', 'rb')
       self.kreuz2009 = pickle.load(kreuz2009_f)
+      kreuz2009_f.close()
       kreuz2008_f = open('kreuz2008.pkl', 'rb')
       self.kreuz2008 = pickle.load(kreuz2008_f)
+      kreuz2008_f.close()
       kreuz2007_f = open('kreuz2007.pkl', 'rb')
       self.kreuz2007 = pickle.load(kreuz2007_f)
+      kreuz2007_f.close()
       kreuz2006_f = open('kreuz2006.pkl', 'rb')
       self.kreuz2006 = pickle.load(kreuz2006_f)
+      kreuz2006_f.close()
       kreuz2005_f = open('kreuz2005.pkl', 'rb')
       self.kreuz2005 = pickle.load(kreuz2005_f)
+      kreuz2005_f.close()
       kreuz2004_f = open('kreuz2004.pkl', 'rb')
       self.kreuz2004 = pickle.load(kreuz2004_f)
+      kreuz2004_f.close()
       
       # dictionary with all history years
       self.kreuz = {'2004': self.kreuz2004, '2005': self.kreuz2005, '2006': self.kreuz2006, '2007': self.kreuz2007, '2008': self.kreuz2008, '2009': self.kreuz2009}
 
       # load recent games
-      recent_f = open('recent_games.pkl', 'rb')
-      self.recent_games = pickle.load(recent_f)
-
+      recent_f = open('recent_games.pkl', 'wb')
+      try:
+         self.recent_games = pickle.load(recent_f)
+      except IOError:
+         pass
+      recent_f.close()
+      
       # load ladder
-      ladder_f = open('ladder.pkl', 'rb')
-      self.ladder = pickle.load(ladder_f)
-
+      ladder_f = open('ladder.pkl', 'wb')
+      try:
+         self.ladder = pickle.load(ladder_f)
+      except IOError:
+         pass
+      ladder_f.close()
 
 
    # save current season data
    def save_data(self):
       kreuz2009_f = open('kreuz2009.pkl', 'wb')
       pickle.dump(self.kreuz2009, kreuz2009_f)
+      kreuz2009_f.close()
 
    # save recent games
    def save_recent(self):
       recent_f = open('recent_games.pkl', 'wb')
       pickle.dump(self.recent_games, recent_f)
-
+      recent_f.close()
+      
    # save ladder
    def save_ladder(self):
       ladder_f = open('ladder.pkl', 'wb')
       pickle.dump(self.ladder, ladder_f)
-       
+      ladder_f.close()
       
    
                
