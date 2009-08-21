@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # orakel debakel
-# for socon by matthias
+# for socon by matthias schneider
 # predicts soccer scores
 
 import sys
@@ -47,19 +47,22 @@ class Main():
       else:
          goal_mean = (0,0)
 
-      print '------'
+      if DEBUG: print '------'
 
       if goal_diff > 0:
-         print str(team[0]) + ' better. ' + 'diff: ' + str(goal_diff)
-         print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
-
+         if DEBUG: print str(team[0]) + ' better. ' + 'diff: ' + str(goal_diff)
+         if DEBUG: print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         
       elif goal_diff == 0:
-         print 'draw. ' + 'diff: ' + str(goal_diff)
-         print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print 'draw. ' + 'diff: ' + str(goal_diff)
+         if DEBUG: print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
 
       else:
-         print str(team[1]) + ' better. ' + 'diff: ' + str(goal_diff)
-         print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+         if DEBUG: print str(team[1]) + ' better. ' + 'diff: ' + str(goal_diff)
+         if DEBUG: print 'prediction ' + str(goal_mean[0]) + ':' + str(goal_mean[1])
+
+      print str(team[0]) + ' ' + team[1] + ' ' + \
+            str(goal_mean[0]) + ' ' + str(goal_mean[1])
 
 
 
@@ -266,23 +269,24 @@ class Main():
          else:
             if DEBUG: print 'gameday ' + str(gameday) + ' schon eingetragen'
 
-      except KeyError as detail:
-         print detail
+      except KeyError:
          print 'KeyError in add_and_do_magic'
-      
 
 
-   def main(self):
-      # read input
-      input = sys.stdin.readlines()
 
+   def main(self):            
       # sys args
       if len(sys.argv) != 3:
-         print 'arguments wrong. major fuck up detected! called stop(). hammertime!'
+         print 'arguments wrong. major fuck up detected! called stop() (hammertime!)'
+         print 'Usage: ' + sys.argv[0] + ' --predict <gameday> <input'
+         print 'Usage: ' + sys.argv[0] + ' --verify <gameday> <input'
          exit(1)
       else:
          mode = sys.argv[1]
          gameday = int(sys.argv[2])
+
+      # read input
+      input = sys.stdin.readlines()
 
       if mode == '--predict':
          # calculate every match
@@ -294,6 +298,14 @@ class Main():
 
             # classic plus bonus method
             self.classic_plus(match)
+
+      # classic mode, secret things are happening here
+      elif mode == '--predict2':
+         for i in input:
+            match = i.replace('\n', '').split(' ')
+
+            # classic method, plain and stupid
+            self.classic(match)
 
       # verify last gameday and enter scores to database
       elif mode == '--verify':
