@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from data import *
 
-class Predictor():
+class Predictor:
 
     def __init__(self):
         self.data = Data()

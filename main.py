@@ -14,7 +14,7 @@ from predictor import *
 
 DEBUG = 1
 
-class Main():
+class Main:
    def __init__(self):
       # init
       self.pred = Predictor()
@@ -280,7 +280,7 @@ class Main():
          print 'arguments wrong. major fuck up detected! called stop() (hammertime!)'
          print 'Usage: ' + sys.argv[0] + ' --predict <gameday> <input'
          print 'Usage: ' + sys.argv[0] + ' --verify <gameday> <input'
-         exit(1)
+         sys.exit(1)
       else:
          mode = sys.argv[1]
          gameday = int(sys.argv[2])

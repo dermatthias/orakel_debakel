@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import cPickle as pickle
 
-class Data():
+class Data:
 
    def __init__(self):
       # team names
