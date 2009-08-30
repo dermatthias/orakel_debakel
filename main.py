@@ -84,21 +84,29 @@ class Main:
 
          rank_t1 = self.pred.get_rank(teams[0])
          rank_t2 = self.pred.get_rank(teams[1])
+         temp_g = []
+         goal_sum = []
 
          if rank_t1 < rank_t2:
             # team 1 wins random score
             rand_list = [[2,1], [1,0], [1,1]] * 2
-            goal_sum = random.sample(rand_list, 2)
+            temp_g = random.sample(rand_list, 2)
+            goal_sum.append(temp_g[0][0] + temp_g[1][0])
+            goal_sum.append(temp_g[0][1] + temp_g[1][1])
             goal_sum.append(len(goal_sum))
          elif rank_t2 < rank_t1:
             # team2 wins random score
             rand_list = [[1,2], [0,1], [1,1]] * 2
-            goal_sum = random.sample(rand_list, 2)
+            temp_g = random.sample(rand_list, 2)
+            goal_sum.append(temp_g[0][0] + temp_g[1][0])
+            goal_sum.append(temp_g[0][1] + temp_g[1][1])
             goal_sum.append(len(goal_sum))
          else:
             # complete random if same rank
             rand_list = [[1,0], [0,1], [0,0], [2,1], [1,2]] * 2
-            goal_sum = random.sample(rand_list, 2)
+            temp_g = random.sample(rand_list, 2)
+            goal_sum.append(temp_g[0][0] + temp_g[1][0])
+            goal_sum.append(temp_g[0][1] + temp_g[1][1])
             goal_sum.append(len(goal_sum))
 
       if DEBUG: print '\033[1;32mScore: \033[1;m' + str(goal_sum)
